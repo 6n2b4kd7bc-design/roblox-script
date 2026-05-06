@@ -47,7 +47,7 @@ local function setupUI()
 
     -- メインUI
     local main = Instance.new("Frame", gui); main.Size = UDim2.new(0, 160, 0, 350); main.Position = UDim2.new(0.02, 0, 0.3, 0); main.BackgroundColor3 = Color3.fromRGB(15, 15, 20); main.ClipsDescendants = true; Instance.new("UICorner", main)
-    local title = Instance.new("TextLabel", main); title.Size = UDim2.new(1, 0, 0, 30); title.Text = "Troll v6.3 Fix"; title.TextColor3 = Color3.new(1, 1, 1); title.BackgroundColor3 = Color3.fromRGB(40, 40, 60); Instance.new("UICorner", title)
+    local title = Instance.new("TextLabel", main); title.Size = UDim2.new(1, 0, 0, 30); title.Text = "Troll v6.4"; title.TextColor3 = Color3.new(1, 1, 1); title.BackgroundColor3 = Color3.fromRGB(40, 40, 60); Instance.new("UICorner", title)
     makeDraggable(main, title)
 
     local hB = Instance.new("TextButton", title); hB.Size = UDim2.new(0, 25, 0, 25); hB.Position = UDim2.new(1, -28, 0, 2.5); hB.Text = "-"; hB.TextColor3 = Color3.new(1,1,1); hB.BackgroundTransparency = 1
