@@ -12,6 +12,9 @@ _G.TrollConfig = _G.TrollConfig or {
 }
 local config = _G.TrollConfig
 
+-- 【追加】でかいUI操作用の参照変数
+local bigChestUI, chestCountLabelObj, mainChestBtnObj
+
 -- === 2. ドラッグ移動 (PC/Mobile対応) ===
 local function makeDraggable(gui, dragPart)
     local dragging, dragStart, startPos
@@ -52,14 +55,53 @@ local function setupUI()
         col = not col; main:TweenSize(col and UDim2.new(0, 160, 0, 30) or UDim2.new(0, 160, 0, 350), "Out", "Quart", 0.3, true); hB.Text = col and "+" or "-"
     end)
 
+    -- 【追加】でかいUI（画面中央）
+    bigChestUI = Instance.new("Frame", gui)
+    bigChestUI.Size = UDim2.new(0, 300, 0, 150)
+    bigChestUI.Position = UDim2.new(0.5, -150, 0.5, -75) -- 画面ド真ん中
+    bigChestUI.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+    bigChestUI.Visible = config.autoChest
+    Instance.new("UICorner", bigChestUI)
+
+    chestCountLabelObj = Instance.new("TextLabel", bigChestUI)
+    chestCountLabelObj.Size = UDim2.new(1, 0, 0.6, 0)
+    chestCountLabelObj.Text = "残りチェスト: 検索中..."
+    chestCountLabelObj.TextColor3 = Color3.new(1, 1, 1)
+    chestCountLabelObj.TextScaled = true
+    chestCountLabelObj.BackgroundTransparency = 1
+
+    local chestOffBtn = Instance.new("TextButton", bigChestUI)
+    chestOffBtn.Size = UDim2.new(0.6, 0, 0.3, 0)
+    chestOffBtn.Position = UDim2.new(0.2, 0, 0.65, 0)
+    chestOffBtn.Text = "OFF"
+    chestOffBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    chestOffBtn.TextColor3 = Color3.new(1, 1, 1)
+    Instance.new("UICorner", chestOffBtn)
+
+    -- 【追加】OFFボタンを押したときの処理
+    chestOffBtn.MouseButton1Click:Connect(function()
+        config.autoChest = false
+        bigChestUI.Visible = false
+        if mainChestBtnObj then
+            mainChestBtnObj.BackgroundColor3 = Color3.fromRGB(30, 30, 40) -- メインUIのボタン色を元に戻す
+        end
+    end)
+
     local function createToggle(text, y, key, cb)
         local b = Instance.new("TextButton", main); b.Size = UDim2.new(0, 140, 0, 35); b.Position = UDim2.new(0, 10, 0, 40 + y); b.Text = text; b.BackgroundColor3 = config[key] and Color3.fromRGB(0, 140, 255) or Color3.fromRGB(30, 30, 40); b.TextColor3 = Color3.new(1, 1, 1); Instance.new("UICorner", b)
+        
+        -- 【追加】AUTO CHESTボタンの参照を保存しておく
+        if key == "autoChest" then mainChestBtnObj = b end
+
         b.MouseButton1Click:Connect(function() 
             config[key] = not config[key]; b.BackgroundColor3 = config[key] and Color3.fromRGB(0, 140, 255) or Color3.fromRGB(30, 30, 40)
             if cb then cb(config[key]) end 
         end)
     end
-    createToggle("AUTO CHEST", 0, "autoChest"); createToggle("AUTO KILL", 45, "autoKill"); createToggle("ESP", 90, "esp"); createToggle("BRIGHT", 135, "fullBright"); createToggle("SPEED", 180, "speedHack"); createToggle("STATS", 225, "showStats", function(v) sF.Visible = v end)
+    
+    -- 【変更】AUTO CHESTのコールバックで、でかいUIの表示/非表示を切り替えるように指定
+    createToggle("AUTO CHEST", 0, "autoChest", function(v) if bigChestUI then bigChestUI.Visible = v end end); 
+    createToggle("AUTO KILL", 45, "autoKill"); createToggle("ESP", 90, "esp"); createToggle("BRIGHT", 135, "fullBright"); createToggle("SPEED", 180, "speedHack"); createToggle("STATS", 225, "showStats", function(v) sF.Visible = v end)
 
     -- 更新ループ (FPS/Ping/ESP)
     RunService.RenderStepped:Connect(function(dt)
@@ -91,6 +133,8 @@ task.spawn(function()
             if not root then task.wait(0.5) return end
             
             local target, isChest, dist = nil, false, config.scanRange
+            local currentChestCount = 0 -- 【追加】チェストの数を数える変数
+            
             if config.autoChest then
                 for _, p in pairs(workspace:GetDescendants()) do
                     if p:IsA("ProximityPrompt") and p.Enabled then
@@ -100,6 +144,9 @@ task.spawn(function()
                             -- 宝箱キーワードが含まれ、かつショップ/NPCワードが含まれない場合のみ
                             if (txt:find("chest") or txt:find("drop") or txt:find("loot")) and 
                                not (txt:find("shop") or txt:find("npc") or txt:find("buy") or txt:find("talk")) then
+                                
+                                currentChestCount = currentChestCount + 1 -- 【追加】チェストの数をカウント
+
                                 local d = (root.Position - obj.Position).Magnitude
                                 if d < dist then target = obj; dist = d; isChest = true end
                             end
@@ -107,6 +154,16 @@ task.spawn(function()
                     end
                 end
             end
+            
+            -- 【修正】でかいUIのチェスト数を毎秒更新（3個ズレ修正＆対象なしの時は0）
+            if chestCountLabelObj and config.autoChest then
+                local displayCount = currentChestCount - 3
+                if not target or displayCount < 0 then
+                    displayCount = 0
+                end
+                chestCountLabelObj.Text = "残りチェスト: " .. displayCount
+            end
+
             if not target and config.autoKill then
                 for _, p in pairs(Players:GetPlayers()) do
                     if p ~= LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
