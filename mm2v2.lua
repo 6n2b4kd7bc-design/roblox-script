@@ -1,4 +1,4 @@
-if not game:IsLoaded() then game.Loaded:Wait() end
+If not game:IsLoaded() then game.Loaded:Wait() end
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -237,5 +237,3 @@ task.spawn(function()
         end
     end
 end)
-
-　
