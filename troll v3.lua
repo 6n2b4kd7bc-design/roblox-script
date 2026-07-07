@@ -115,7 +115,7 @@ Instance.new("UICorner", chestOffBtn)
 
 -- === 3. Rayfield UI ===
 local Window = Rayfield:CreateWindow({
-    Name = "Troll Hub v8.0 (Performance Update)",
+    Name = "Troll Hub v8.1 (Scripts Added)",
     LoadingTitle = "Troll Hub Loading...",
     LoadingSubtitle = "by Troll",
     ConfigurationSaving = { Enabled = false },
@@ -127,12 +127,15 @@ local MainTab = Window:CreateTab("Main", 4483362458)
 local PlayerTab = Window:CreateTab("Player", 4483362458)
 local EspTab = Window:CreateTab("ESP", 4483362458)
 local MiscTab = Window:CreateTab("Misc", 4483362458)
+local ScriptTab = Window:CreateTab("Scripts", 4483362458) -- 【追加】Scriptsタブ
 
+-- 🟢 Main タブ
 local AutoChestToggle = MainTab:CreateToggle({ Name = "AUTO CHEST", CurrentValue = config.autoChest, Flag = "AutoChest", Callback = function(Value) config.autoChest = Value; bigChestUI.Visible = Value end })
 chestOffBtn.MouseButton1Click:Connect(function() if AutoChestToggle then AutoChestToggle:Set(false) end end)
 
 MainTab:CreateToggle({ Name = "AUTO KILL", CurrentValue = config.autoKill, Flag = "AutoKill", Callback = function(Value) config.autoKill = Value end })
 
+-- 🧍 Player タブ
 PlayerTab:CreateToggle({ Name = "VFly", CurrentValue = config.vfly, Flag = "VFly", Callback = function(Value) config.vfly = Value end })
 PlayerTab:CreateSlider({ Name = "VFly Speed", Range = {10, 300}, Increment = 5, CurrentValue = config.vflySpeed, Flag = "VFlySpeed", Callback = function(Value) config.vflySpeed = Value end })
 
@@ -167,11 +170,12 @@ PlayerTab:CreateToggle({ Name = "Freeze (Anchored)", CurrentValue = config.freez
 PlayerTab:CreateToggle({ Name = "Anti-Fling (他プレイヤーとの衝突無効)", CurrentValue = config.antiFling, Flag = "AntiFling", Callback = function(Value) config.antiFling = Value end })
 PlayerTab:CreateToggle({ Name = "SPEED HACK", CurrentValue = config.speedHack, Flag = "SpeedHack", Callback = function(Value) config.speedHack = Value; if not Value and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then LocalPlayer.Character.Humanoid.WalkSpeed = 16 end end })
 
+-- 🔵 ESP タブ
 EspTab:CreateToggle({ Name = "PLAYER ESP", CurrentValue = config.esp, Flag = "PlayerEsp", Callback = function(Value) config.esp = Value end })
 EspTab:CreateToggle({ Name = "BOSS / NPC ESP", CurrentValue = config.npcEsp, Flag = "BossEsp", Callback = function(Value) config.npcEsp = Value; if not Value then for obj, tag in pairs(activeBossTags) do if tag then tag:Destroy() end end; table.clear(activeBossTags) end end })
 EspTab:CreateToggle({ Name = "CHEST ESP", CurrentValue = config.chestEsp, Flag = "ChestEsp", Callback = function(Value) config.chestEsp = Value end })
 
--- 【追加】Miscタブの最適化機能
+-- 🟠 Misc タブ
 MiscTab:CreateButton({
     Name = "ANTI LAG (軽量化・元に戻せません)",
     Callback = function()
@@ -188,11 +192,18 @@ MiscTab:CreateButton({
         Lighting.GlobalShadows = false
     end,
 })
-
 MiscTab:CreateToggle({ Name = "REMOVE SHADOWS (影削除)", CurrentValue = config.removeShadows, Flag = "RemoveShadows", Callback = function(Value) config.removeShadows = Value end })
 MiscTab:CreateToggle({ Name = "REMOVE FOG (霧削除)", CurrentValue = config.removeFog, Flag = "RemoveFog", Callback = function(Value) config.removeFog = Value end })
 MiscTab:CreateToggle({ Name = "FULL BRIGHT", CurrentValue = config.fullBright, Flag = "FullBright", Callback = function(Value) config.fullBright = Value; if not Value then Lighting.Brightness = 1; Lighting.ClockTime = 12 end end })
 MiscTab:CreateToggle({ Name = "STATS HUD", CurrentValue = config.showStats, Flag = "StatsHud", Callback = function(Value) config.showStats = Value; sF.Visible = Value end })
+
+-- 📜 Scripts タブ 【追加】
+ScriptTab:CreateButton({
+    Name = "Unstability || Universal",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ILOVETHECOFFINOFANDYANDLEYLEY/THE-HACK-/main/script%20omg"))()
+    end,
+})
 
 -- === 4. Physics / Movement (Stepped) ===
 RunService.Stepped:Connect(function()
@@ -290,18 +301,13 @@ RunService.RenderStepped:Connect(function(dt)
         if config.speedHack then hum.WalkSpeed = config.walkSpeed end
     end
 
-    -- 【追加】影・霧の削除ロジック
-    if config.removeShadows then
-        Lighting.GlobalShadows = false
-    end
+    if config.removeShadows then Lighting.GlobalShadows = false end
     
     if config.removeFog then
         Lighting.FogEnd = 100000
         Lighting.FogStart = 0
         local atmosphere = Lighting:FindFirstChildOfClass("Atmosphere")
-        if atmosphere then
-            atmosphere.Density = 0
-        end
+        if atmosphere then atmosphere.Density = 0 end
     end
 
     if config.fullBright then Lighting.Brightness = 2; Lighting.ClockTime = 14 end
@@ -390,7 +396,7 @@ task.spawn(function()
     end
 end)
 
--- === 8. Chest ESP (追加・遅延ロード対応版) ===
+-- === 8. Chest ESP ===
 local folderName = "AllChestESP_Folder"
 if pgui:FindFirstChild(folderName) then pgui[folderName]:Destroy() end
 
@@ -433,9 +439,7 @@ local function createESP(target)
             end
         end
 
-        if not attachPart and target:IsA("BasePart") then
-            attachPart = target
-        end
+        if not attachPart and target:IsA("BasePart") then attachPart = target end
         if not attachPart then return end
 
         local billboard = Instance.new("BillboardGui")
@@ -479,10 +483,5 @@ local function createESP(target)
     end)
 end
 
-for _, v in pairs(workspace:GetDescendants()) do
-    createESP(v)
-end
-
-workspace.DescendantAdded:Connect(function(v)
-    createESP(v)
-end)
+for _, v in pairs(workspace:GetDescendants()) do createESP(v) end
+workspace.DescendantAdded:Connect(function(v) createESP(v) end)
