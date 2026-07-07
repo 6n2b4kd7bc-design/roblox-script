@@ -10,6 +10,7 @@ local Camera = workspace.CurrentCamera
 -- === 1. 設定 ===
 _G.TrollConfig = _G.TrollConfig or {
     autoChest = false, autoKill = false, esp = false, npcEsp = false, chestEsp = false, fullBright = false,
+    removeShadows = false, removeFog = false,
     speedHack = false, antiAFK = true, showStats = true, walkSpeed = 100, scanRange = 2500,
     vfly = false, tpfly = false, fly = false, noclip = false, freeze = false, antiFling = false,
     vflySpeed = 50, tpflySpeed = 5, flySpeed = 50
@@ -114,7 +115,7 @@ Instance.new("UICorner", chestOffBtn)
 
 -- === 3. Rayfield UI ===
 local Window = Rayfield:CreateWindow({
-    Name = "Troll Hub v7.9.1 (Chest ESP Fixed)",
+    Name = "Troll Hub v8.0 (Performance Update)",
     LoadingTitle = "Troll Hub Loading...",
     LoadingSubtitle = "by Troll",
     ConfigurationSaving = { Enabled = false },
@@ -170,6 +171,26 @@ EspTab:CreateToggle({ Name = "PLAYER ESP", CurrentValue = config.esp, Flag = "Pl
 EspTab:CreateToggle({ Name = "BOSS / NPC ESP", CurrentValue = config.npcEsp, Flag = "BossEsp", Callback = function(Value) config.npcEsp = Value; if not Value then for obj, tag in pairs(activeBossTags) do if tag then tag:Destroy() end end; table.clear(activeBossTags) end end })
 EspTab:CreateToggle({ Name = "CHEST ESP", CurrentValue = config.chestEsp, Flag = "ChestEsp", Callback = function(Value) config.chestEsp = Value end })
 
+-- 【追加】Miscタブの最適化機能
+MiscTab:CreateButton({
+    Name = "ANTI LAG (軽量化・元に戻せません)",
+    Callback = function()
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+        for _, v in pairs(workspace:GetDescendants()) do
+            if v:IsA("BasePart") and not v:IsA("MeshPart") then
+                v.Material = Enum.Material.SmoothPlastic
+            elseif v:IsA("Decal") or v:IsA("Texture") then
+                v.Transparency = 1
+            elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+                v.Enabled = false
+            end
+        end
+        Lighting.GlobalShadows = false
+    end,
+})
+
+MiscTab:CreateToggle({ Name = "REMOVE SHADOWS (影削除)", CurrentValue = config.removeShadows, Flag = "RemoveShadows", Callback = function(Value) config.removeShadows = Value end })
+MiscTab:CreateToggle({ Name = "REMOVE FOG (霧削除)", CurrentValue = config.removeFog, Flag = "RemoveFog", Callback = function(Value) config.removeFog = Value end })
 MiscTab:CreateToggle({ Name = "FULL BRIGHT", CurrentValue = config.fullBright, Flag = "FullBright", Callback = function(Value) config.fullBright = Value; if not Value then Lighting.Brightness = 1; Lighting.ClockTime = 12 end end })
 MiscTab:CreateToggle({ Name = "STATS HUD", CurrentValue = config.showStats, Flag = "StatsHud", Callback = function(Value) config.showStats = Value; sF.Visible = Value end })
 
@@ -269,6 +290,20 @@ RunService.RenderStepped:Connect(function(dt)
         if config.speedHack then hum.WalkSpeed = config.walkSpeed end
     end
 
+    -- 【追加】影・霧の削除ロジック
+    if config.removeShadows then
+        Lighting.GlobalShadows = false
+    end
+    
+    if config.removeFog then
+        Lighting.FogEnd = 100000
+        Lighting.FogStart = 0
+        local atmosphere = Lighting:FindFirstChildOfClass("Atmosphere")
+        if atmosphere then
+            atmosphere.Density = 0
+        end
+    end
+
     if config.fullBright then Lighting.Brightness = 2; Lighting.ClockTime = 14 end
 end)
 
@@ -364,7 +399,6 @@ chestEspFolder.Name = folderName
 chestEspFolder.Parent = pgui
 
 local function createESP(target)
-    -- 新規スポーン時、中身のパーツが揃うまで少し待つ処理を追加
     task.spawn(function()
         local displayName = ""
         local espColor = Color3.new(1, 1, 1)
@@ -390,11 +424,10 @@ local function createESP(target)
 
         local attachPart = target:FindFirstChild("Handle") or target:FindFirstChild("MachineChest_p") or target:FindFirstChildWhichIsA("BasePart", true)
         
-        -- アタッチするパーツが見つからなければ、数回リトライしてロードを待つ
         if not attachPart and target:IsA("Model") then
             for i = 1, 10 do
                 task.wait(0.2)
-                if not target.Parent then return end -- 消滅したら中断
+                if not target.Parent then return end 
                 attachPart = target:FindFirstChild("Handle") or target:FindFirstChild("MachineChest_p") or target:FindFirstChildWhichIsA("BasePart", true)
                 if attachPart then break end
             end
@@ -446,12 +479,10 @@ local function createESP(target)
     end)
 end
 
--- 既存のチェストに適用
 for _, v in pairs(workspace:GetDescendants()) do
     createESP(v)
 end
 
--- 新規追加チェストに適用
 workspace.DescendantAdded:Connect(function(v)
     createESP(v)
 end)
