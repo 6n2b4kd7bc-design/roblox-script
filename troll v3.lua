@@ -115,7 +115,7 @@ Instance.new("UICorner", chestOffBtn)
 
 -- === 3. Rayfield UI ===
 local Window = Rayfield:CreateWindow({
-    Name = "Troll Hub v8.1 (Scripts Added)",
+    Name = "Troll Hub v8.2 (Boss ESP Fixed)",
     LoadingTitle = "Troll Hub Loading...",
     LoadingSubtitle = "by Troll",
     ConfigurationSaving = { Enabled = false },
@@ -127,7 +127,7 @@ local MainTab = Window:CreateTab("Main", 4483362458)
 local PlayerTab = Window:CreateTab("Player", 4483362458)
 local EspTab = Window:CreateTab("ESP", 4483362458)
 local MiscTab = Window:CreateTab("Misc", 4483362458)
-local ScriptTab = Window:CreateTab("Scripts", 4483362458) -- 【追加】Scriptsタブ
+local ScriptTab = Window:CreateTab("Scripts", 4483362458)
 
 -- 🟢 Main タブ
 local AutoChestToggle = MainTab:CreateToggle({ Name = "AUTO CHEST", CurrentValue = config.autoChest, Flag = "AutoChest", Callback = function(Value) config.autoChest = Value; bigChestUI.Visible = Value end })
@@ -197,7 +197,7 @@ MiscTab:CreateToggle({ Name = "REMOVE FOG (霧削除)", CurrentValue = config.re
 MiscTab:CreateToggle({ Name = "FULL BRIGHT", CurrentValue = config.fullBright, Flag = "FullBright", Callback = function(Value) config.fullBright = Value; if not Value then Lighting.Brightness = 1; Lighting.ClockTime = 12 end end })
 MiscTab:CreateToggle({ Name = "STATS HUD", CurrentValue = config.showStats, Flag = "StatsHud", Callback = function(Value) config.showStats = Value; sF.Visible = Value end })
 
--- 📜 Scripts タブ 【追加】
+-- 📜 Scripts タブ 
 ScriptTab:CreateButton({
     Name = "Unstability || Universal",
     Callback = function()
@@ -313,17 +313,22 @@ RunService.RenderStepped:Connect(function(dt)
     if config.fullBright then Lighting.Brightness = 2; Lighting.ClockTime = 14 end
 end)
 
--- === 6. スキャナー ===
+-- === 6. スキャナー (修正版: boss's フォルダ追加) ===
 task.spawn(function()
     while true do
         pcall(function()
             if config.npcEsp then
                 local found = {}
-                local targets = { workspace:FindFirstChild("ActiveNPCs"), workspace:FindFirstChild("Map Boss"), workspace:FindFirstChild("Map folder") }
+                local targets = { 
+                    workspace:FindFirstChild("ActiveNPCs"), 
+                    workspace:FindFirstChild("boss's"), 
+                    workspace:FindFirstChild("Map Boss"), 
+                    workspace:FindFirstChild("Map folder") 
+                }
                 for _, folder in pairs(targets) do
                     if folder then
                         for _, obj in pairs(folder:GetDescendants()) do
-                            if obj:IsA("Model") and obj:FindFirstChild("Humanoid") and (obj:FindFirstChild("Head") or obj:FindFirstChild("HumanoidRootPart")) then
+                            if obj:IsA("Model") and (obj:FindFirstChild("Humanoid") or obj:FindFirstChild("Head")) then
                                 if not Players:GetPlayerFromCharacter(obj) then table.insert(found, obj) end
                             end
                         end
