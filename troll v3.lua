@@ -19,7 +19,7 @@ _G.TrollConfig = _G.TrollConfig or {
     esp = false, fullBright = false, removeShadows = false, removeFog = false,
     
     -- ゲーム専用設定 (13946738101)
-    autoChest = false, safeAutoChest = false, autoKill = false, npcEsp = false, chestEsp = false,
+    autoChest = false, safeAutoChest = false, autoKill = false, npcEsp = false, chestEsp = false, itemEsp = false,
     scanRange = 2500, tpwalkSpeed = 5
 }
 local config = _G.TrollConfig
@@ -111,7 +111,7 @@ pL.Size = UDim2.new(1,0,0.5,0); pL.Position = UDim2.new(0,0,0.5,0); pL.Backgroun
 
 -- === 4. Rayfield UI 初期化 ===
 local Window = Rayfield:CreateWindow({
-    Name = "Troll Hub v9.1 (TPWalk Fixed)",
+    Name = "Troll Hub v9.2 (Item ESP)",
     LoadingTitle = "Troll Hub Loading...",
     LoadingSubtitle = "by Troll",
     ConfigurationSaving = { Enabled = false },
@@ -188,6 +188,7 @@ if PlaceId == 13946738101 then
     EspTab:CreateSection("Game Specific ESP")
     EspTab:CreateToggle({ Name = "BOSS / NPC ESP", CurrentValue = config.npcEsp, Flag = "BossEsp", Callback = function(Value) config.npcEsp = Value; if not Value then for obj, tag in pairs(activeBossTags) do if tag then tag:Destroy() end end; table.clear(activeBossTags) end end })
     EspTab:CreateToggle({ Name = "CHEST ESP", CurrentValue = config.chestEsp, Flag = "ChestEsp", Callback = function(Value) config.chestEsp = Value end })
+    EspTab:CreateToggle({ Name = "ITEM ESP (チェスト以外のアイテム)", CurrentValue = config.itemEsp, Flag = "ItemEsp", Callback = function(Value) config.itemEsp = Value end })
 
     -- 厳選テレポート (SAFE FARM = 修正版TPWalk)
     task.spawn(function()
@@ -313,7 +314,9 @@ if PlaceId == 13946738101 then
         end
     end)
 
-    -- Chest ESP ロジック
+    -- =====================================
+    -- 📦 Chest ESP ロジック
+    -- =====================================
     local folderName = "AllChestESP_Folder"
     if pgui:FindFirstChild(folderName) then pgui[folderName]:Destroy() end
     local chestEspFolder = Instance.new("Folder")
@@ -355,6 +358,75 @@ if PlaceId == 13946738101 then
     end
     for _, v in pairs(workspace:GetDescendants()) do createESP(v) end
     workspace.DescendantAdded:Connect(function(v) createESP(v) end)
+
+    -- =====================================
+    -- 💎 Item ESP ロジック (チェスト以外を監視)
+    -- =====================================
+    local itemFolderName = "AllItemESP_Folder"
+    if pgui:FindFirstChild(itemFolderName) then pgui[itemFolderName]:Destroy() end
+    local itemEspFolder = Instance.new("Folder")
+    itemEspFolder.Name = itemFolderName
+    itemEspFolder.Parent = pgui
+
+    local function createItemESP(target)
+        task.spawn(function()
+            local displayName, espColor = "", Color3.new(1, 1, 1)
+            
+            -- チェスト類は除外
+            if target.Name:match("Chest") or target.Name:match("chest") then return end
+            
+            -- 画像9枚目で確認できた WeepSoul_P を対象
+            if target.Name == "WeepSoul_P" then 
+                displayName = "👻 Weep Soul"
+                espColor = Color3.fromRGB(150, 255, 255)
+            -- その他 _P などの命名規則があるドロップアイテムを汎用的に拾う
+            elseif target.Name:match("_P$") or target.Name:match("_p$") then
+                displayName = "🔹 " .. target.Name:gsub("_[Pp]$", "")
+                espColor = Color3.fromRGB(200, 200, 255)
+            else
+                return 
+            end
+
+            -- 監視対象のパーツを取得
+            local attachPart = target:IsA("BasePart") and target or target:FindFirstChildWhichIsA("BasePart", true)
+            if not attachPart then return end
+
+            local billboard = Instance.new("BillboardGui")
+            billboard.Name = "ItemLabel"
+            billboard.Adornee = attachPart
+            billboard.Size = UDim2.new(0, 200, 0, 30)
+            billboard.StudsOffset = Vector3.new(0, 2, 0)
+            billboard.AlwaysOnTop = true
+            
+            local label = Instance.new("TextLabel", billboard)
+            label.Size = UDim2.new(1, 0, 1, 0)
+            label.BackgroundTransparency = 1
+            label.Text = displayName
+            label.TextColor3 = espColor
+            label.TextStrokeTransparency = 0
+            label.Font = Enum.Font.GothamBold
+            label.TextSize = 12
+            billboard.Parent = itemEspFolder
+
+            local connection
+            connection = RunService.RenderStepped:Connect(function()
+                if not target or not target.Parent or not attachPart or not attachPart.Parent then 
+                    billboard:Destroy()
+                    connection:Disconnect()
+                    return 
+                end
+                billboard.Enabled = config.itemEsp
+                if config.itemEsp then
+                    local root = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    if root then 
+                        label.Text = displayName .. " [" .. math.floor((root.Position - attachPart.Position).Magnitude) .. "m]" 
+                    end
+                end
+            end)
+        end)
+    end
+    for _, v in pairs(workspace:GetDescendants()) do createItemESP(v) end
+    workspace.DescendantAdded:Connect(function(v) createItemESP(v) end)
 
 elseif PlaceId == 123456789 then
     MainTab:CreateSection("別のゲーム専用の機能")
