@@ -1,660 +1,559 @@
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
 
--- === 1. Hub UIのベース作成 ===
-local pgui = game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
-if pgui:FindFirstChild("MotobuHubUI") then
-    pgui.MotobuHubUI:Destroy()
+-- === 1. ロード画面の作成 ===
+local pgui
+local success = pcall(function() pgui = CoreGui end)
+if not success or not pgui then pgui = LocalPlayer:WaitForChild("PlayerGui") end
+
+if pgui:FindFirstChild("MotobuLoadingUI") then
+    pgui.MotobuLoadingUI:Destroy()
 end
 
-local screenGui = Instance.new("ScreenGui", pgui)
-screenGui.Name = "MotobuHubUI"
-screenGui.ResetOnSpawn = false
+local loadGui = Instance.new("ScreenGui", pgui)
+loadGui.Name = "MotobuLoadingUI"
+loadGui.IgnoreGuiInset = true
+loadGui.ResetOnSpawn = false
 
--- メインフレーム
-local mainFrame = Instance.new("Frame", screenGui)
-mainFrame.Size = UDim2.new(0, 300, 0, 350)
-mainFrame.Position = UDim2.new(0.5, -150, 0.5, -175)
-mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+local bg = Instance.new("Frame", loadGui)
+bg.Size = UDim2.new(1, 0, 1, 0)
+bg.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+bg.BackgroundTransparency = 0.4
+
+local mainFrame = Instance.new("Frame", bg)
+mainFrame.Size = UDim2.new(0, 320, 0, 120)
+mainFrame.Position = UDim2.new(0.5, -160, 0.5, -60)
+mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
 mainFrame.BorderSizePixel = 0
-mainFrame.Active = true
-Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
+Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 10)
 
--- ヘッダー (ドラッグ移動可能)
-local header = Instance.new("Frame", mainFrame)
-header.Size = UDim2.new(1, 0, 0, 35)
-header.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
-Instance.new("UICorner", header).CornerRadius = UDim.new(0, 8)
-
-local headerFix = Instance.new("Frame", header)
-headerFix.Size = UDim2.new(1, 0, 0, 10)
-headerFix.Position = UDim2.new(0, 0, 1, -10)
-headerFix.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
-headerFix.BorderSizePixel = 0
-
-local title = Instance.new("TextLabel", header)
-title.Size = UDim2.new(1, -40, 1, 0)
-title.Position = UDim2.new(0, 10, 0, 0)
+local title = Instance.new("TextLabel", mainFrame)
+title.Size = UDim2.new(1, 0, 0, 40)
 title.BackgroundTransparency = 1
-title.Text = "MotobuV20 - Main Hub"
+title.Text = "MotobuV20 起動中..."
 title.TextColor3 = Color3.new(1, 1, 1)
 title.Font = Enum.Font.GothamBold
-title.TextSize = 14
-title.TextXAlignment = Enum.TextXAlignment.Left
+title.TextSize = 18
 
--- 収納ボタン (-)
-local collapseBtn = Instance.new("TextButton", header)
-collapseBtn.Size = UDim2.new(0, 35, 0, 35)
-collapseBtn.Position = UDim2.new(1, -35, 0, 0)
-collapseBtn.BackgroundTransparency = 1
-collapseBtn.Text = "-"
-collapseBtn.TextColor3 = Color3.new(1, 1, 1)
-collapseBtn.TextSize = 20
-collapseBtn.Font = Enum.Font.GothamBold
+local statusText = Instance.new("TextLabel", mainFrame)
+statusText.Size = UDim2.new(1, 0, 0, 20)
+statusText.Position = UDim2.new(0, 0, 0, 45)
+statusText.BackgroundTransparency = 1
+statusText.Text = "システムを初期化しています..."
+statusText.TextColor3 = Color3.fromRGB(180, 180, 180)
+statusText.Font = Enum.Font.Gotham
+statusText.TextSize = 13
 
--- スクロール可能なコンテンツエリア
-local scrollFrame = Instance.new("ScrollingFrame", mainFrame)
-scrollFrame.Size = UDim2.new(1, 0, 1, -35)
-scrollFrame.Position = UDim2.new(0, 0, 0, 35)
-scrollFrame.BackgroundTransparency = 1
-scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 650)
-scrollFrame.ScrollBarThickness = 5
-scrollFrame.BorderSizePixel = 0
-scrollFrame.ScrollBarImageColor3 = Color3.fromRGB(100, 100, 110)
+local barBg = Instance.new("Frame", mainFrame)
+barBg.Size = UDim2.new(0.85, 0, 0, 10)
+barBg.Position = UDim2.new(0.075, 0, 0, 85)
+barBg.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
+Instance.new("UICorner", barBg).CornerRadius = UDim.new(1, 0)
 
--- === 2. UIの操作ロジック (移動・収納) ===
-local dragging, dragInput, dragStart, startPos
-header.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        dragStart = input.Position
-        startPos = mainFrame.Position
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then dragging = false end
-        end)
-    end
-end)
-header.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-        dragInput = input
-    end
-end)
-UserInputService.InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        local delta = input.Position - dragStart
-        mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-end)
+local barFill = Instance.new("Frame", barBg)
+barFill.Size = UDim2.new(0, 0, 1, 0)
+barFill.BackgroundColor3 = Color3.fromRGB(80, 150, 255)
+Instance.new("UICorner", barFill).CornerRadius = UDim.new(1, 0)
 
-local isCollapsed = false
-collapseBtn.MouseButton1Click:Connect(function()
-    isCollapsed = not isCollapsed
-    scrollFrame.Visible = not isCollapsed
-    if isCollapsed then
-        mainFrame.Size = UDim2.new(0, 300, 0, 35)
-        collapseBtn.Text = "+"
-    else
-        mainFrame.Size = UDim2.new(0, 300, 0, 350)
-        collapseBtn.Text = "-"
-    end
-end)
-
-local function createFeatureButton(text, yPos)
-    local btn = Instance.new("TextButton", scrollFrame)
-    btn.Size = UDim2.new(0.9, 0, 0, 40)
-    btn.Position = UDim2.new(0.05, 0, 0, yPos)
-    btn.BackgroundColor3 = Color3.fromRGB(50, 150, 200)
-    btn.Text = text
-    btn.TextColor3 = Color3.new(1, 1, 1)
-    btn.Font = Enum.Font.GothamBold
-    btn.TextSize = 14
-    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
-    return btn
+local function updateLoad(text, percent)
+    statusText.Text = text
+    TweenService:Create(barFill, TweenInfo.new(0.3, Enum.EasingStyle.Sine), {Size = UDim2.new(percent, 0, 1, 0)}):Play()
+    task.wait(0.3)
 end
 
--- === 3. 各機能ボタンの組み込み ===
+-- === 2. スクリプトのロード開始 ===
+task.spawn(function()
+    updateLoad("環境変数を確認中...", 0.2)
+    task.wait(0.5)
 
--- 【機能 1】モバイル用 銃撃連打 (HipShot)
-local loadSpammerBtn = createFeatureButton("🔫 モバイル用連打をロード", 15)
-loadSpammerBtn.MouseButton1Click:Connect(function()
-    task.spawn(function()
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-        local Camera = workspace.CurrentCamera
-        local Event = ReplicatedStorage:WaitForChild("WeaponRemotes"):WaitForChild("Initiate")
-
-        local coreGui = game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
-        if coreGui:FindFirstChild("MobileSpammerUI") then coreGui.MobileSpammerUI:Destroy() end
-        local spamGui = Instance.new("ScreenGui", coreGui)
-        spamGui.Name = "MobileSpammerUI"
-        spamGui.ResetOnSpawn = false
-
-        local toggleBtn = Instance.new("TextButton", spamGui)
-        toggleBtn.Size = UDim2.new(0, 140, 0, 60)
-        toggleBtn.Position = UDim2.new(0.75, -70, 0.7, -30)
-        toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-        toggleBtn.Text = "💥 連打: OFF"
-        toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-        toggleBtn.Font = Enum.Font.GothamBold
-        toggleBtn.TextSize = 16
-        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
-
-        local btnDragging, btnDragInput, btnDragStart, btnStartPos
-        toggleBtn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-                btnDragging = true
-                btnDragStart = input.Position
-                btnStartPos = toggleBtn.Position
-                input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
-            end
-        end)
-        toggleBtn.InputChanged:Connect(function(input)
-            if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
-                local delta = input.Position - btnDragStart
-                toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
-            end
-        end)
-
-        local function getCenterTargetPosition()
-            local raycastParams = RaycastParams.new()
-            raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-            if LocalPlayer.Character then raycastParams.FilterDescendantsInstances = {LocalPlayer.Character} end
-            local rayOrigin = Camera.CFrame.Position
-            local rayDirection = Camera.CFrame.LookVector * 1000
-            local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
-            return raycastResult and raycastResult.Position or (rayOrigin + rayDirection)
-        end
-
-        local isSpamming = false
-        toggleBtn.MouseButton1Click:Connect(function()
-            isSpamming = not isSpamming
-            if isSpamming then
-                toggleBtn.Text = "🔥 連打: ON"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-                task.spawn(function()
-                    while isSpamming do
-                        pcall(function() Event:FireServer("HipShot", {GunCF = Camera.CFrame, MousePos = getCenterTargetPosition()}) end)
-                        task.wait(0.02) 
-                    end
-                end)
-            else
-                toggleBtn.Text = "💥 連打: OFF"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-            end
-        end)
+    updateLoad("Rayfield UI をダウンロード中 (時間がかかります)...", 0.4)
+    
+    -- UIライブラリの読み込み
+    local Rayfield
+    local loadSuccess, loadError = pcall(function()
+        Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
     end)
-    loadSpammerBtn.Text = "✅ ロード完了！"
-    loadSpammerBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-    task.delay(1.5, function() loadSpammerBtn.Text = "🔫 モバイル用連打をロード" loadSpammerBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 200) end)
-end)
 
--- 【機能 2】モバイル用 アイテム・近接連打 (ActivateItem)
-local loadItemSpammerBtn = createFeatureButton("🔪 アイテム連打をロード", 65)
-loadItemSpammerBtn.MouseButton1Click:Connect(function()
-    task.spawn(function()
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-        local Camera = workspace.CurrentCamera
-        local Event = ReplicatedStorage:WaitForChild("WeaponRemotes"):WaitForChild("ActivateItem")
+    if not loadSuccess or not Rayfield then
+        updateLoad("UIのダウンロードに失敗しました！", 0)
+        statusText.TextColor3 = Color3.new(1, 0.3, 0.3)
+        task.wait(3)
+        loadGui:Destroy()
+        return
+    end
 
-        local coreGui = game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
-        if coreGui:FindFirstChild("ItemSpammerUI") then coreGui.ItemSpammerUI:Destroy() end
-        local spamGui = Instance.new("ScreenGui", coreGui)
-        spamGui.Name = "ItemSpammerUI"
-        spamGui.ResetOnSpawn = false
+    updateLoad("UIウィンドウを構築中...", 0.7)
+    
+    local Window = Rayfield:CreateWindow({
+       Name = "MotobuV20 - Rayfield Hub",
+       LoadingTitle = "MotobuV20 Hub",
+       LoadingSubtitle = "by Motobu",
+       ConfigurationSaving = { Enabled = false },
+       Discord = { Enabled = false },
+       KeySystem = false
+    })
 
-        local toggleBtn = Instance.new("TextButton", spamGui)
-        toggleBtn.Size = UDim2.new(0, 140, 0, 60)
-        toggleBtn.Position = UDim2.new(0.75, -70, 0.5, -30)
-        toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 50)
-        toggleBtn.Text = "🔪 アイテム連打: OFF"
-        toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-        toggleBtn.Font = Enum.Font.GothamBold
-        toggleBtn.TextSize = 14
-        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
+    local TabMain = Window:CreateTab("メイン機能", 4483362458)
+    local TabESP = Window:CreateTab("ESP / 視覚化", 4483362458)
 
-        local btnDragging, btnDragInput, btnDragStart, btnStartPos
-        toggleBtn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-                btnDragging = true
-                btnDragStart = input.Position
-                btnStartPos = toggleBtn.Position
-                input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
-            end
-        end)
-        toggleBtn.InputChanged:Connect(function(input)
-            if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
-                local delta = input.Position - btnDragStart
-                toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
-            end
-        end)
+    updateLoad("各機能モジュールをセットアップ中...", 0.9)
 
-        local isSpamming = false
-        toggleBtn.MouseButton1Click:Connect(function()
-            isSpamming = not isSpamming
-            if isSpamming then
-                toggleBtn.Text = "🔥 アイテム連打: ON"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 150, 50)
-                task.spawn(function()
-                    while isSpamming do
-                        pcall(function() Event:FireServer("R", "L", Camera.CFrame) end)
-                        task.wait(0.05) 
-                    end
-                end)
-            else
-                toggleBtn.Text = "🔪 アイテム連打: OFF"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 50)
-            end
-        end)
-    end)
-    loadItemSpammerBtn.Text = "✅ ロード完了！"
-    loadItemSpammerBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-    task.delay(1.5, function() loadItemSpammerBtn.Text = "🔪 アイテム連打をロード" loadItemSpammerBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 200) end)
-end)
+    -- =========================================
+    -- ボタンロード機能
+    -- =========================================
+    TabMain:CreateSection("単体ボタンロード機能")
 
--- 【機能 3】Buddy自動回収 (HoldObject)
-local loadBuddyBtn = createFeatureButton("🧸 Buddy自動回収をロード", 115)
-loadBuddyBtn.MouseButton1Click:Connect(function()
-    task.spawn(function()
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-        local Event = ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("AntiquesAndHolding"):WaitForChild("HoldObject")
+    -- 【機能 1】銃撃連打
+    TabMain:CreateButton({
+       Name = "🔫 モバイル用 銃撃連打ボタンをロード",
+       Callback = function()
+          task.spawn(function()
+             local Event = ReplicatedStorage:WaitForChild("WeaponRemotes"):WaitForChild("Initiate")
+             if pgui:FindFirstChild("MobileSpammerUI") then pgui.MobileSpammerUI:Destroy() end
+             local spamGui = Instance.new("ScreenGui", pgui)
+             spamGui.Name = "MobileSpammerUI"
+             spamGui.ResetOnSpawn = false
 
-        local coreGui = game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
-        if coreGui:FindFirstChild("BuddySpammerUI") then coreGui.BuddySpammerUI:Destroy() end
-        local spamGui = Instance.new("ScreenGui", coreGui)
-        spamGui.Name = "BuddySpammerUI"
-        spamGui.ResetOnSpawn = false
+             local toggleBtn = Instance.new("TextButton", spamGui)
+             toggleBtn.Size = UDim2.new(0, 140, 0, 60)
+             toggleBtn.Position = UDim2.new(0.75, -70, 0.7, -30)
+             toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+             toggleBtn.Text = "💥 連打: OFF"
+             toggleBtn.TextColor3 = Color3.new(1, 1, 1)
+             toggleBtn.Font = Enum.Font.GothamBold
+             toggleBtn.TextSize = 16
+             Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
 
-        local toggleBtn = Instance.new("TextButton", spamGui)
-        toggleBtn.Size = UDim2.new(0, 140, 0, 60)
-        toggleBtn.Position = UDim2.new(0.75, -70, 0.3, -30)
-        toggleBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 200) 
-        toggleBtn.Text = "🧸 Buddy回収: OFF"
-        toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-        toggleBtn.Font = Enum.Font.GothamBold
-        toggleBtn.TextSize = 14
-        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
+             local btnDragging, btnDragStart, btnStartPos
+             toggleBtn.InputBegan:Connect(function(input)
+                 if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+                     btnDragging = true; btnDragStart = input.Position; btnStartPos = toggleBtn.Position
+                     input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
+                 end
+             end)
+             toggleBtn.InputChanged:Connect(function(input)
+                 if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
+                     local delta = input.Position - btnDragStart
+                     toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
+                 end
+             end)
 
-        local btnDragging, btnDragInput, btnDragStart, btnStartPos
-        toggleBtn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-                btnDragging = true
-                btnDragStart = input.Position
-                btnStartPos = toggleBtn.Position
-                input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
-            end
-        end)
-        toggleBtn.InputChanged:Connect(function(input)
-            if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
-                local delta = input.Position - btnDragStart
-                toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
-            end
-        end)
+             local function getCenterTargetPosition()
+                 local raycastParams = RaycastParams.new()
+                 raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+                 if LocalPlayer.Character then raycastParams.FilterDescendantsInstances = {LocalPlayer.Character} end
+                 local rayOrigin = Camera.CFrame.Position
+                 local rayDirection = Camera.CFrame.LookVector * 1000
+                 local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+                 return raycastResult and raycastResult.Position or (rayOrigin + rayDirection)
+             end
 
-        local isSpamming = false
-        toggleBtn.MouseButton1Click:Connect(function()
-            isSpamming = not isSpamming
-            if isSpamming then
-                toggleBtn.Text = "🧸 Buddy回収: ON"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 250)
-                task.spawn(function()
-                    while isSpamming do
-                        pcall(function()
-                            local buddytv = workspace:FindFirstChild("BUDDYTV")
-                            if buddytv then
-                                local buddy = buddytv:FindFirstChild("Buddy")
-                                if buddy then
-                                    Event:FireServer("Start", buddy, "BuddyHold")
-                                end
+             local isSpamming = false
+             toggleBtn.MouseButton1Click:Connect(function()
+                 isSpamming = not isSpamming
+                 if isSpamming then
+                     toggleBtn.Text = "🔥 連打: ON"
+                     toggleBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
+                     task.spawn(function()
+                         while isSpamming do
+                             pcall(function() Event:FireServer("HipShot", {GunCF = Camera.CFrame, MousePos = getCenterTargetPosition()}) end)
+                             task.wait(0.02)
+                         end
+                     end)
+                 else
+                     toggleBtn.Text = "💥 連打: OFF"
+                     toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+                 end
+             end)
+             Rayfield:Notify({Title = "ロード完了", Content = "銃撃連打ボタンを表示しました", Duration = 2})
+          end)
+       end,
+    })
+
+    -- 【機能 2】アイテム連打
+    TabMain:CreateButton({
+       Name = "🔪 モバイル用 アイテム連打ボタンをロード",
+       Callback = function()
+          task.spawn(function()
+             local Event = ReplicatedStorage:WaitForChild("WeaponRemotes"):WaitForChild("ActivateItem")
+             if pgui:FindFirstChild("ItemSpammerUI") then pgui.ItemSpammerUI:Destroy() end
+             local spamGui = Instance.new("ScreenGui", pgui)
+             spamGui.Name = "ItemSpammerUI"
+             spamGui.ResetOnSpawn = false
+
+             local toggleBtn = Instance.new("TextButton", spamGui)
+             toggleBtn.Size = UDim2.new(0, 140, 0, 60)
+             toggleBtn.Position = UDim2.new(0.75, -70, 0.5, -30)
+             toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 50)
+             toggleBtn.Text = "🔪 アイテム連打: OFF"
+             toggleBtn.TextColor3 = Color3.new(1, 1, 1)
+             toggleBtn.Font = Enum.Font.GothamBold
+             toggleBtn.TextSize = 14
+             Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
+
+             local btnDragging, btnDragStart, btnStartPos
+             toggleBtn.InputBegan:Connect(function(input)
+                 if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+                     btnDragging = true; btnDragStart = input.Position; btnStartPos = toggleBtn.Position
+                     input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
+                 end
+             end)
+             toggleBtn.InputChanged:Connect(function(input)
+                 if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
+                     local delta = input.Position - btnDragStart
+                     toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
+                 end
+             end)
+
+             local isSpamming = false
+             toggleBtn.MouseButton1Click:Connect(function()
+                 isSpamming = not isSpamming
+                 if isSpamming then
+                     toggleBtn.Text = "🔥 アイテム連打: ON"
+                     toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 150, 50)
+                     task.spawn(function()
+                         while isSpamming do
+                             pcall(function() Event:FireServer("R", "L", Camera.CFrame) end)
+                             task.wait(0.05)
+                         end
+                     end)
+                 else
+                     toggleBtn.Text = "🔪 アイテム連打: OFF"
+                     toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 50)
+                 end
+             end)
+             Rayfield:Notify({Title = "ロード完了", Content = "アイテム連打ボタンを表示しました", Duration = 2})
+          end)
+       end,
+    })
+
+    -- =========================================
+    -- トグル機能 (Rayfield UI 内で ON/OFF 切替)
+    -- =========================================
+    TabMain:CreateSection("自動化・戦闘トグル")
+
+    -- 【機能 3】Buddy自動回収
+    local isBuddyActive = false
+    TabMain:CreateToggle({
+       Name = "🧸 Buddy自動回収",
+       CurrentValue = false,
+       Flag = "BuddyToggle",
+       Callback = function(Value)
+          isBuddyActive = Value
+          if isBuddyActive then
+             task.spawn(function()
+                local Event = ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("AntiquesAndHolding"):WaitForChild("HoldObject")
+                while isBuddyActive do
+                   pcall(function()
+                      local buddytv = workspace:FindFirstChild("BUDDYTV")
+                      if buddytv then
+                         local buddy = buddytv:FindFirstChild("Buddy")
+                         if buddy then Event:FireServer("Start", buddy, "BuddyHold") end
+                      end
+                   end)
+                   task.wait(0.5)
+                end
+             end)
+          end
+       end,
+    })
+
+    -- 【機能 4】お金(Celz)自動回収
+    local isMoneyActive = false
+    TabMain:CreateToggle({
+       Name = "💰 お金(Celz)自動回収",
+       CurrentValue = false,
+       Flag = "MoneyToggle",
+       Callback = function(Value)
+          isMoneyActive = Value
+          if isMoneyActive then
+             task.spawn(function()
+                local Event = ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("Shop"):WaitForChild("CelzCollect")
+                while isMoneyActive do
+                   local foundCelz = {}
+                   for _, obj in pairs(workspace:GetDescendants()) do
+                      if obj.Name:match("^Celz%d+$") then table.insert(foundCelz, obj) end
+                   end
+                   pcall(function()
+                      if getnilinstances then
+                         for _, obj in pairs(getnilinstances()) do
+                            if obj and obj.Name:match("^Celz%d+$") then table.insert(foundCelz, obj) end
+                         end
+                      end
+                   end)
+                   for _, obj in pairs(foundCelz) do
+                      local valueStr = obj.Name:match("%d+")
+                      if valueStr then pcall(function() Event:FireServer(tonumber(valueStr), obj) end) end
+                   end
+                   task.wait(1)
+                end
+             end)
+          end
+       end,
+    })
+
+    -- 【機能 5】骨董品自動回収
+    local isAntiqueActive = false
+    TabMain:CreateToggle({
+       Name = "🏺 骨董品自動回収",
+       CurrentValue = false,
+       Flag = "AntiqueToggle",
+       Callback = function(Value)
+          isAntiqueActive = Value
+          if isAntiqueActive then
+             task.spawn(function()
+                local Event = ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("AntiquesAndHolding"):WaitForChild("HoldObject")
+                while isAntiqueActive do
+                   pcall(function()
+                      local addedAntiques = workspace:FindFirstChild("AddedAntiques")
+                      if addedAntiques then
+                         for _, antique in pairs(addedAntiques:GetChildren()) do
+                            Event:FireServer("Start", antique, "NormalHold")
+                         end
+                      end
+                   end)
+                   task.wait(1)
+                end
+             end)
+          end
+       end,
+    })
+
+    -- 【機能 6】遠隔キル (Kill Aura)
+    local isKillAuraActive = false
+    TabMain:CreateToggle({
+       Name = "⚔️ 遠隔キル (Kill Aura)",
+       CurrentValue = false,
+       Flag = "KillAuraToggle",
+       Callback = function(Value)
+          isKillAuraActive = Value
+          if isKillAuraActive then
+             task.spawn(function()
+                local Event = ReplicatedStorage:WaitForChild("WeaponRemotes"):WaitForChild("Attack")
+                while isKillAuraActive do
+                   pcall(function()
+                      local monsterContainer = workspace:FindFirstChild("MonsterContainer")
+                      if monsterContainer then
+                         for _, monster in pairs(monsterContainer:GetChildren()) do
+                            local targetPart = monster:FindFirstChild("Icosphere") or monster:FindFirstChildWhichIsA("BasePart")
+                            if targetPart then
+                               local weaponName = "Broom"
+                               local char = LocalPlayer.Character
+                               if char then
+                                  local equippedTool = char:FindFirstChildOfClass("Tool")
+                                  if equippedTool then weaponName = equippedTool.Name end
+                               end
+                               Event:FireServer(targetPart, weaponName, { CFrame = targetPart.CFrame })
                             end
-                        end)
-                        task.wait(0.5) 
-                    end
-                end)
-            else
-                toggleBtn.Text = "🧸 Buddy回収: OFF"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
-            end
-        end)
-    end)
-    loadBuddyBtn.Text = "✅ ロード完了！"
-    loadBuddyBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-    task.delay(1.5, function() loadBuddyBtn.Text = "🧸 Buddy自動回収をロード" loadBuddyBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 200) end)
-end)
+                         end
+                      end
+                   end)
+                   task.wait(0.2)
+                end
+             end)
+          end
+       end,
+    })
 
--- 【機能 4】お金(Celz) 自動回収 (CelzCollect)
-local loadMoneyBtn = createFeatureButton("💰 お金(Celz)自動回収をロード", 165)
-loadMoneyBtn.MouseButton1Click:Connect(function()
-    task.spawn(function()
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-        local Event = ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("Shop"):WaitForChild("CelzCollect")
+    -- 【機能 7】自動掃除 (AddedStains対象)
+    local isAutoCleanActive = false
+    TabMain:CreateToggle({
+       Name = "🧹 自動掃除 (Stains)",
+       CurrentValue = false,
+       Flag = "AutoCleanToggle",
+       Callback = function(Value)
+          isAutoCleanActive = Value
+          if isAutoCleanActive then
+             task.spawn(function()
+                local Event = ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("WeaponsEtc"):WaitForChild("CleaningFurniture")
+                while isAutoCleanActive do
+                   pcall(function()
+                      local addedStains = workspace:FindFirstChild("AddedStains")
+                      if addedStains then
+                         local stains = addedStains:GetChildren()
+                         for i = 1, #stains do
+                            if not isAutoCleanActive then break end
+                            local stain = stains[i]
+                            for j = 1, 5 do Event:FireServer(stain, 1) end
+                         end
+                      end
+                   end)
+                   task.wait(0.5)
+                end
+             end)
+          end
+       end,
+    })
 
-        local coreGui = game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
-        if coreGui:FindFirstChild("MoneySpammerUI") then coreGui.MoneySpammerUI:Destroy() end
-        local spamGui = Instance.new("ScreenGui", coreGui)
-        spamGui.Name = "MoneySpammerUI"
-        spamGui.ResetOnSpawn = false
-
-        local toggleBtn = Instance.new("TextButton", spamGui)
-        toggleBtn.Size = UDim2.new(0, 140, 0, 60)
-        toggleBtn.Position = UDim2.new(0.75, -70, 0.1, -30)
-        toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 150, 20)
-        toggleBtn.Text = "💰 お金回収: OFF"
-        toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-        toggleBtn.Font = Enum.Font.GothamBold
-        toggleBtn.TextSize = 14
-        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
-
-        local btnDragging, btnDragInput, btnDragStart, btnStartPos
-        toggleBtn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-                btnDragging = true
-                btnDragStart = input.Position
-                btnStartPos = toggleBtn.Position
-                input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
-            end
-        end)
-        toggleBtn.InputChanged:Connect(function(input)
-            if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
-                local delta = input.Position - btnDragStart
-                toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
-            end
-        end)
-
-        local isSpamming = false
-        toggleBtn.MouseButton1Click:Connect(function()
-            isSpamming = not isSpamming
-            if isSpamming then
-                toggleBtn.Text = "💸 お金回収: ON"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(250, 200, 50)
-                task.spawn(function()
-                    while isSpamming do
-                        local foundCelz = {}
-                        for _, obj in workspace:GetDescendants() do
-                            if obj.Name:match("^Celz%d+$") then table.insert(foundCelz, obj) end
-                        end
-                        pcall(function()
-                            for _, obj in getnilinstances() do
-                                if obj.Name:match("^Celz%d+$") then table.insert(foundCelz, obj) end
+    -- 【機能 8】超高速家具掃除
+    local isFurnitureCleanActive = false
+    TabMain:CreateToggle({
+       Name = "⚡ 超高速オート家具掃除",
+       CurrentValue = false,
+       Flag = "FurnitureCleanToggle",
+       Callback = function(Value)
+          isFurnitureCleanActive = Value
+          if isFurnitureCleanActive then
+             task.spawn(function()
+                local Event = ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("WeaponsEtc"):WaitForChild("CleaningFurniture")
+                while isFurnitureCleanActive do
+                   pcall(function()
+                      local mapGen = workspace:FindFirstChild("MapGen")
+                      if mapGen then
+                         for _, room in pairs(mapGen:GetChildren()) do
+                            for _, furniture in pairs(room:GetChildren()) do
+                               if not isFurnitureCleanActive then break end
+                               if furniture:IsA("Model") or furniture:IsA("BasePart") then
+                                  for i = 1, 5 do Event:FireServer(furniture, 1) end
+                                  task.wait(0.001)
+                               end
                             end
-                        end)
+                         end
+                      end
+                   end)
+                   task.wait(0.1)
+                end
+             end)
+          end
+       end,
+    })
 
-                        for _, obj in foundCelz do
-                            local valueStr = obj.Name:match("%d+")
-                            if valueStr then
-                                pcall(function() Event:FireServer(tonumber(valueStr), obj) end)
+    -- =========================================
+    -- ESP 機能タブ
+    -- =========================================
+    TabESP:CreateSection("視覚化 (ESP)")
+
+    -- 【機能 9】Stains(汚れ) 近距離ESP
+    local isStainEspActive = false
+    TabESP:CreateToggle({
+       Name = "🧽 Stains 近距離ESP (80studs)",
+       CurrentValue = false,
+       Flag = "StainEspToggle",
+       Callback = function(Value)
+          isStainEspActive = Value
+          if isStainEspActive then
+             task.spawn(function()
+                while isStainEspActive do
+                   pcall(function()
+                      local char = LocalPlayer.Character
+                      local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                      local addedStains = workspace:FindFirstChild("AddedStains")
+
+                      if hrp and addedStains then
+                         for _, stain in pairs(addedStains:GetChildren()) do
+                            local targetPart = stain:IsA("BasePart") and stain or stain:FindFirstChildWhichIsA("BasePart")
+                            if targetPart then
+                               local dist = (targetPart.Position - hrp.Position).Magnitude
+                               local espGui = targetPart:FindFirstChild("StainESP_Motobu")
+                               if dist <= 80 then
+                                  if not espGui then
+                                     espGui = Instance.new("BillboardGui", targetPart)
+                                     espGui.Name = "StainESP_Motobu"
+                                     espGui.Size = UDim2.new(0, 80, 0, 20)
+                                     espGui.AlwaysOnTop = true
+                                     local text = Instance.new("TextLabel", espGui)
+                                     text.Size = UDim2.new(1, 0, 1, 0)
+                                     text.BackgroundTransparency = 1
+                                     text.Text = "🧽 汚れ"
+                                     text.TextColor3 = Color3.new(0.5, 1, 0.5)
+                                     text.TextStrokeTransparency = 0.5
+                                     text.TextScaled = true
+                                     text.Font = Enum.Font.GothamBold
+                                  end
+                                  espGui.Enabled = true
+                               else
+                                  if espGui then espGui.Enabled = false end
+                               end
                             end
-                        end
-                        task.wait(1) 
-                    end
-                end)
-            else
-                toggleBtn.Text = "💰 お金回収: OFF"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 150, 20)
-            end
-        end)
-    end)
-    loadMoneyBtn.Text = "✅ ロード完了！"
-    loadMoneyBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-    task.delay(1.5, function() loadMoneyBtn.Text = "💰 お金(Celz)自動回収をロード" loadMoneyBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 200) end)
-end)
+                         end
+                      end
+                   end)
+                   task.wait(0.5)
+                end
+                local addedStains = workspace:FindFirstChild("AddedStains")
+                if addedStains then
+                   for _, stain in pairs(addedStains:GetDescendants()) do
+                      if stain.Name == "StainESP_Motobu" then stain:Destroy() end
+                   end
+                end
+             end)
+          end
+       end,
+    })
 
--- 【機能 5】Stains(汚れ) 近距離ESP
-local loadStainBtn = createFeatureButton("🧽 Stains近距離ESPをロード", 215)
-loadStainBtn.MouseButton1Click:Connect(function()
-    task.spawn(function()
-        local coreGui = game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
-        if coreGui:FindFirstChild("StainEspUI") then coreGui.StainEspUI:Destroy() end
-        local spamGui = Instance.new("ScreenGui", coreGui)
-        spamGui.Name = "StainEspUI"
-        spamGui.ResetOnSpawn = false
+    -- 【機能 10】敵 (Monster) ESP
+    local isMonsterEspActive = false
+    TabESP:CreateToggle({
+       Name = "👹 敵 (Monster) ESP",
+       CurrentValue = false,
+       Flag = "MonsterEspToggle",
+       Callback = function(Value)
+          isMonsterEspActive = Value
+          -- ⚠️修正箇所: me という文字を削除し、正常に条件分岐するようにしました
+          if isMonsterEspActive then
+             task.spawn(function()
+                while isMonsterEspActive do
+                   pcall(function()
+                      local monsterContainer = workspace:FindFirstChild("MonsterContainer")
+                      if monsterContainer then
+                         for _, monster in pairs(monsterContainer:GetChildren()) do
+                            local targetPart = monster:FindFirstChild("HumanoidRootPart") or monster:FindFirstChildWhichIsA("BasePart") or monster
+                            if targetPart and not monster:FindFirstChild("ESP_Highlight_Motobu") then
+                               local highlight = Instance.new("Highlight")
+                               highlight.Name = "ESP_Highlight_Motobu"
+                               highlight.Parent = monster
+                               highlight.FillColor = Color3.new(1, 0, 0)
+                               highlight.OutlineColor = Color3.new(1, 1, 1)
+                               highlight.FillTransparency = 0.5
+                               highlight.OutlineTransparency = 0
 
-        local toggleBtn = Instance.new("TextButton", spamGui)
-        toggleBtn.Size = UDim2.new(0, 140, 0, 60)
-        toggleBtn.Position = UDim2.new(0.25, -70, 0.3, -30)
-        toggleBtn.BackgroundColor3 = Color3.fromRGB(100, 150, 50)
-        toggleBtn.Text = "🧽 Stains ESP: OFF"
-        toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-        toggleBtn.Font = Enum.Font.GothamBold
-        toggleBtn.TextSize = 14
-        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
+                               local billboard = Instance.new("BillboardGui")
+                               billboard.Name = "ESP_Billboard_Motobu"
+                               billboard.Parent = targetPart
+                               billboard.Size = UDim2.new(0, 100, 0, 30)
+                               billboard.AlwaysOnTop = true
+                               billboard.StudsOffset = Vector3.new(0, 3, 0)
 
-        local btnDragging, btnDragInput, btnDragStart, btnStartPos
-        toggleBtn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-                btnDragging = true
-                btnDragStart = input.Position
-                btnStartPos = toggleBtn.Position
-                input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
-            end
-        end)
-        toggleBtn.InputChanged:Connect(function(input)
-            if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
-                local delta = input.Position - btnDragStart
-                toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
-            end
-        end)
-
-        local isSpamming = false
-        toggleBtn.MouseButton1Click:Connect(function()
-            isSpamming = not isSpamming
-            if isSpamming then
-                toggleBtn.Text = "✨ Stains ESP: ON"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(150, 200, 50)
-                task.spawn(function()
-                    while isSpamming do
-                        pcall(function()
-                            local char = LocalPlayer.Character
-                            local hrp = char and char:FindFirstChild("HumanoidRootPart")
-                            local addedStains = workspace:FindFirstChild("AddedStains")
-
-                            if hrp and addedStains then
-                                for _, stain in addedStains:GetChildren() do
-                                    local targetPart = stain:IsA("BasePart") and stain or stain:FindFirstChildWhichIsA("BasePart")
-                                    if targetPart then
-                                        local dist = (targetPart.Position - hrp.Position).Magnitude
-                                        local espGui = targetPart:FindFirstChild("StainESP_Motobu")
-                                        
-                                        if dist <= 80 then
-                                            if not espGui then
-                                                espGui = Instance.new("BillboardGui", targetPart)
-                                                espGui.Name = "StainESP_Motobu"
-                                                espGui.Size = UDim2.new(0, 80, 0, 20)
-                                                espGui.AlwaysOnTop = true
-                                                
-                                                local text = Instance.new("TextLabel", espGui)
-                                                text.Size = UDim2.new(1, 0, 1, 0)
-                                                text.BackgroundTransparency = 1
-                                                text.Text = "🧽 汚れ"
-                                                text.TextColor3 = Color3.new(0.5, 1, 0.5)
-                                                text.TextStrokeTransparency = 0.5
-                                                text.TextScaled = true
-                                                text.Font = Enum.Font.GothamBold
-                                            end
-                                            espGui.Enabled = true
-                                        else
-                                            if espGui then espGui.Enabled = false end
-                                        end
-                                    end
-                                end
+                               local text = Instance.new("TextLabel", billboard)
+                               text.Size = UDim2.new(1, 0, 1, 0)
+                               text.BackgroundTransparency = 1
+                               text.Text = "👹 敵"
+                               text.TextColor3 = Color3.new(1, 0.2, 0.2)
+                               text.TextStrokeTransparency = 0
+                               text.TextScaled = true
+                               text.Font = Enum.Font.GothamBold
                             end
-                        end)
-                        task.wait(0.5)
-                    end
-                    
-                    local addedStains = workspace:FindFirstChild("AddedStains")
-                    if addedStains then
-                        for _, stain in addedStains:GetDescendants() do
-                            if stain.Name == "StainESP_Motobu" then stain:Destroy() end
-                        end
-                    end
+                         end
+                      end
+                   end)
+                   task.wait(1)
+                end
+                pcall(function()
+                   local monsterContainer = workspace:FindFirstChild("MonsterContainer")
+                   if monsterContainer then
+                      for _, monster in pairs(monsterContainer:GetChildren()) do
+                         local hl = monster:FindFirstChild("ESP_Highlight_Motobu")
+                         if hl then hl:Destroy() end
+                         local targetPart = monster:FindFirstChild("HumanoidRootPart") or monster:FindFirstChildWhichIsA("BasePart") or monster
+                         if targetPart then
+                            local bb = targetPart:FindFirstChild("ESP_Billboard_Motobu")
+                            if bb then bb:Destroy() end
+                         end
+                      end
+                   end
                 end)
-            else
-                toggleBtn.Text = "🧽 Stains ESP: OFF"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(100, 150, 50)
-            end
-        end)
-    end)
-    loadStainBtn.Text = "✅ ロード完了！"
-    loadStainBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-    task.delay(1.5, function() loadStainBtn.Text = "🧽 Stains近距離ESPをロード" loadStainBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 200) end)
-end)
+             end)
+          end
+       end,
+    })
 
--- 【機能 6】Antiques(骨董品) 自動回収
-local loadAntiqueBtn = createFeatureButton("🏺 骨董品自動回収をロード", 265)
-loadAntiqueBtn.MouseButton1Click:Connect(function()
-    task.spawn(function()
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-        local Event = ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("AntiquesAndHolding"):WaitForChild("HoldObject")
+    updateLoad("完了！UIを起動します...", 1)
+    task.wait(0.5)
 
-        local coreGui = game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
-        if coreGui:FindFirstChild("AntiqueSpammerUI") then coreGui.AntiqueSpammerUI:Destroy() end
-        local spamGui = Instance.new("ScreenGui", coreGui)
-        spamGui.Name = "AntiqueSpammerUI"
-        spamGui.ResetOnSpawn = false
-
-        local toggleBtn = Instance.new("TextButton", spamGui)
-        toggleBtn.Size = UDim2.new(0, 140, 0, 60)
-        toggleBtn.Position = UDim2.new(0.25, -70, 0.5, -30)
-        toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 50)
-        toggleBtn.Text = "🏺 骨董品回収: OFF"
-        toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-        toggleBtn.Font = Enum.Font.GothamBold
-        toggleBtn.TextSize = 14
-        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
-
-        local btnDragging, btnDragInput, btnDragStart, btnStartPos
-        toggleBtn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-                btnDragging = true
-                btnDragStart = input.Position
-                btnStartPos = toggleBtn.Position
-                input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
-            end
-        end)
-        toggleBtn.InputChanged:Connect(function(input)
-            if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
-                local delta = input.Position - btnDragStart
-                toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
-            end
-        end)
-
-        local isSpamming = false
-        toggleBtn.MouseButton1Click:Connect(function()
-            isSpamming = not isSpamming
-            if isSpamming then
-                toggleBtn.Text = "✨ 骨董品回収: ON"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(220, 130, 50)
-                task.spawn(function()
-                    while isSpamming do
-                        pcall(function()
-                            local addedAntiques = workspace:FindFirstChild("AddedAntiques")
-                            if addedAntiques then
-                                for _, antique in addedAntiques:GetChildren() do
-                                    Event:FireServer("Start", antique, "NormalHold")
-                                end
-                            end
-                        end)
-                        task.wait(1) 
-                    end
-                end)
-            else
-                toggleBtn.Text = "🏺 骨董品回収: OFF"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 50)
-            end
-        end)
-    end)
-    loadAntiqueBtn.Text = "✅ ロード完了！"
-    loadAntiqueBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-    task.delay(1.5, function() loadAntiqueBtn.Text = "🏺 骨董品自動回収をロード" loadAntiqueBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 200) end)
-end)
-
--- ----------------------------------------------------
--- 【機能 7】Kill Aura (遠隔モンスターキル) [NEW]
--- ----------------------------------------------------
-local loadKillAuraBtn = createFeatureButton("⚔️ 遠隔キル(Kill Aura)をロード", 315)
-loadKillAuraBtn.MouseButton1Click:Connect(function()
-    task.spawn(function()
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-        local Event = ReplicatedStorage:WaitForChild("WeaponRemotes"):WaitForChild("Attack")
-
-        local coreGui = game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
-        if coreGui:FindFirstChild("KillAuraUI") then coreGui.KillAuraUI:Destroy() end
-        local spamGui = Instance.new("ScreenGui", coreGui)
-        spamGui.Name = "KillAuraUI"
-        spamGui.ResetOnSpawn = false
-
-        local toggleBtn = Instance.new("TextButton", spamGui)
-        toggleBtn.Size = UDim2.new(0, 140, 0, 60)
-        toggleBtn.Position = UDim2.new(0.5, -70, 0.2, -30) -- 中央上部に配置
-        toggleBtn.BackgroundColor3 = Color3.fromRGB(150, 30, 30)
-        toggleBtn.Text = "⚔️ 遠隔キル: OFF"
-        toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-        toggleBtn.Font = Enum.Font.GothamBold
-        toggleBtn.TextSize = 14
-        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
-
-        local btnDragging, btnDragInput, btnDragStart, btnStartPos
-        toggleBtn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-                btnDragging = true
-                btnDragStart = input.Position
-                btnStartPos = toggleBtn.Position
-                input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then btnDragging = false end end)
-            end
-        end)
-        toggleBtn.InputChanged:Connect(function(input)
-            if btnDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
-                local delta = input.Position - btnDragStart
-                toggleBtn.Position = UDim2.new(btnStartPos.X.Scale, btnStartPos.X.Offset + delta.X, btnStartPos.Y.Scale, btnStartPos.Y.Offset + delta.Y)
-            end
-        end)
-
-        local isSpamming = false
-        toggleBtn.MouseButton1Click:Connect(function()
-            isSpamming = not isSpamming
-            if isSpamming then
-                toggleBtn.Text = "☠️ 遠隔キル: ON"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
-                task.spawn(function()
-                    while isSpamming do
-                        pcall(function()
-                            local monsterContainer = workspace:FindFirstChild("MonsterContainer")
-                            if monsterContainer then
-                                for _, monster in monsterContainer:GetChildren() do
-                                    -- 攻撃判定の的(Icosphere)か、その他のメインパーツを探す
-                                    local targetPart = monster:FindFirstChild("Icosphere") or monster:FindFirstChildWhichIsA("BasePart")
-                                    
-                                    if targetPart then
-                                        -- 持っている武器の名前を取得（無ければBroom）
-                                        local weaponName = "Broom"
-                                        local char = LocalPlayer.Character
-                                        if char then
-                                            local equippedTool = char:FindFirstChildOfClass("Tool")
-                                            if equippedTool then
-                                                weaponName = equippedTool.Name
-                                            end
-                                        end
-
-                                        -- ダメージ判定のリモートを対象の現在位置(CFrame)で送信
-                                        Event:FireServer(
-                                            targetPart,
-                                            weaponName,
-                                            { CFrame = targetPart.CFrame }
-                                        )
-                                    end
-                                end
-                            end
-                        end)
-                        task.wait(0.2) -- ラグやキック対策のため0.2秒間隔で攻撃
-                    end
-                end)
-            else
-                toggleBtn.Text = "⚔️ 遠隔キル: OFF"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(150, 30, 30)
-            end
-        end)
-    end)
-    loadKillAuraBtn.Text = "✅ ロード完了！"
-    loadKillAuraBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-    task.delay(1.5, function() loadKillAuraBtn.Text = "⚔️ 遠隔キル(Kill Aura)をロード" loadKillAuraBtn.BackgroundColor3 = Color3.fromRGB(50, 150, 200) end)
+    -- ロード画面を削除
+    if loadGui then loadGui:Destroy() end
 end)
