@@ -98,22 +98,83 @@ task.spawn(function()
     })
 
     local TabMain = Window:CreateTab("メイン機能", 4483362458)
+    local TabCustom = Window:CreateTab("カスタマイズ", 4483362458)
     local TabESP = Window:CreateTab("ESP / 視覚化", 4483362458)
 
     updateLoad("各機能モジュールをセットアップ中...", 0.9)
 
     -- =========================================
-    -- ボタンロード機能
+    -- 【新規】 カスタマイズ機能タブ
     -- =========================================
-    TabMain:CreateSection("単体ボタンロード機能")
+    TabCustom:CreateSection("キャラクター変更 (未所持使用可)")
+    TabCustom:CreateDropdown({
+       Name = "👤 キャラクターを選択",
+       Options = {"RANGER", "LOBBER", "ZOOMER", "BLASTER"},
+       CurrentOption = {"RANGER"},
+       Flag = "ClassSelect",
+       Callback = function(Option)
+          local selectedClass = type(Option) == "table" and Option[1] or Option
+          pcall(function()
+             ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("ChangeClass"):FireServer(selectedClass)
+          end)
+          Rayfield:Notify({Title = "クラス変更", Content = selectedClass .. " に変更しました", Duration = 2})
+       end,
+    })
 
-    -- 【機能 1】銃撃連打
+    TabCustom:CreateSection("スキン(色)変更")
+    TabCustom:CreateDropdown({
+       Name = "🎨 スキンカラーを選択",
+       Options = {"Rusty Brown", "White", "Blackberry"},
+       CurrentOption = {"Rusty Brown"},
+       Flag = "ColorSelect",
+       Callback = function(Option)
+          local selectedColor = type(Option) == "table" and Option[1] or Option
+          pcall(function()
+             ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("ChangeColor"):FireServer(selectedColor)
+          end)
+          Rayfield:Notify({Title = "カラー変更", Content = selectedColor .. " に変更しました", Duration = 2})
+       end,
+    })
+
+    TabCustom:CreateSection("武器スキン変更")
+    TabCustom:CreateDropdown({
+       Name = "🧹 武器スキンを選択",
+       Options = {"Snare Smacker", "Bubble Wand", "Last Supper", "Undercover", "Toilet Brush"},
+       CurrentOption = {"Snare Smacker"},
+       Flag = "BroomSelect",
+       Callback = function(Option)
+          local selectedBroom = type(Option) == "table" and Option[1] or Option
+          pcall(function()
+             ReplicatedStorage:WaitForChild("ChillAhhRemotes"):WaitForChild("ChangeBroom"):FireServer(selectedBroom)
+          end)
+          Rayfield:Notify({Title = "武器スキン変更", Content = selectedBroom .. " に変更しました", Duration = 2})
+       end,
+    })
+
+    -- =========================================
+    -- メイン機能タブ: ボタンロード ＆ 射撃カスタマイズ
+    -- =========================================
+    TabMain:CreateSection("🔫 射撃カスタマイズ & ボタン")
+
+    local currentGunMode = "SmallShot"
+    TabMain:CreateDropdown({
+       Name = "🎯 射撃モード選択",
+       Options = {"SmallShot", "HipShot", "Both"},
+       CurrentOption = {"SmallShot"},
+       Flag = "GunModeSelect",
+       Callback = function(Option)
+          currentGunMode = type(Option) == "table" and Option[1] or Option
+          Rayfield:Notify({Title = "モード変更", Content = "射撃モードを [" .. currentGunMode .. "] に設定しました", Duration = 2})
+       end,
+    })
+
     TabMain:CreateButton({
        Name = "🔫 モバイル用 銃撃連打ボタンをロード",
        Callback = function()
           task.spawn(function()
              local Event = ReplicatedStorage:WaitForChild("WeaponRemotes"):WaitForChild("Initiate")
              if pgui:FindFirstChild("MobileSpammerUI") then pgui.MobileSpammerUI:Destroy() end
+             
              local spamGui = Instance.new("ScreenGui", pgui)
              spamGui.Name = "MobileSpammerUI"
              spamGui.ResetOnSpawn = false
@@ -152,6 +213,18 @@ task.spawn(function()
                  return raycastResult and raycastResult.Position or (rayOrigin + rayDirection)
              end
 
+             local function sendShot(gunCF, mousePos)
+                 local data = {GunCF = gunCF, MousePos = mousePos}
+                 if currentGunMode == "SmallShot" then
+                     Event:FireServer("SmallShot", data)
+                 elseif currentGunMode == "HipShot" then
+                     Event:FireServer("HipShot", data)
+                 elseif currentGunMode == "Both" then
+                     Event:FireServer("SmallShot", data)
+                     Event:FireServer("HipShot", data)
+                 end
+             end
+
              local isSpamming = false
              toggleBtn.MouseButton1Click:Connect(function()
                  isSpamming = not isSpamming
@@ -160,7 +233,7 @@ task.spawn(function()
                      toggleBtn.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
                      task.spawn(function()
                          while isSpamming do
-                             pcall(function() Event:FireServer("HipShot", {GunCF = Camera.CFrame, MousePos = getCenterTargetPosition()}) end)
+                             pcall(function() sendShot(Camera.CFrame, getCenterTargetPosition()) end)
                              task.wait(0.02)
                          end
                      end)
@@ -169,12 +242,11 @@ task.spawn(function()
                      toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
                  end
              end)
-             Rayfield:Notify({Title = "ロード完了", Content = "銃撃連打ボタンを表示しました", Duration = 2})
+             Rayfield:Notify({Title = "ロード完了", Content = "モード切替対応の連打ボタンを表示しました", Duration = 2})
           end)
        end,
     })
 
-    -- 【機能 2】アイテム連打
     TabMain:CreateButton({
        Name = "🔪 モバイル用 アイテム連打ボタンをロード",
        Callback = function()
@@ -217,7 +289,7 @@ task.spawn(function()
                      toggleBtn.BackgroundColor3 = Color3.fromRGB(200, 150, 50)
                      task.spawn(function()
                          while isSpamming do
-                             pcall(function() Event:FireServer("R", "L", Camera.CFrame) end)
+                             pcall(function() Event:FireServer("endCharge", "R", Camera.CFrame) end)
                              task.wait(0.05)
                          end
                      end)
@@ -231,12 +303,8 @@ task.spawn(function()
        end,
     })
 
-    -- =========================================
-    -- トグル機能 (Rayfield UI 内で ON/OFF 切替)
-    -- =========================================
     TabMain:CreateSection("自動化・戦闘トグル")
 
-    -- 【機能 3】Buddy自動回収
     local isBuddyActive = false
     TabMain:CreateToggle({
        Name = "🧸 Buddy自動回収",
@@ -262,7 +330,6 @@ task.spawn(function()
        end,
     })
 
-    -- 【機能 4】お金(Celz)自動回収
     local isMoneyActive = false
     TabMain:CreateToggle({
        Name = "💰 お金(Celz)自動回収",
@@ -296,7 +363,6 @@ task.spawn(function()
        end,
     })
 
-    -- 【機能 5】骨董品自動回収
     local isAntiqueActive = false
     TabMain:CreateToggle({
        Name = "🏺 骨董品自動回収",
@@ -323,7 +389,6 @@ task.spawn(function()
        end,
     })
 
-    -- 【機能 6】遠隔キル (Kill Aura)
     local isKillAuraActive = false
     TabMain:CreateToggle({
        Name = "⚔️ 遠隔キル (Kill Aura)",
@@ -359,7 +424,6 @@ task.spawn(function()
        end,
     })
 
-    -- 【機能 7】自動掃除 (AddedStains対象)
     local isAutoCleanActive = false
     TabMain:CreateToggle({
        Name = "🧹 自動掃除 (Stains)",
@@ -377,8 +441,7 @@ task.spawn(function()
                          local stains = addedStains:GetChildren()
                          for i = 1, #stains do
                             if not isAutoCleanActive then break end
-                            local stain = stains[i]
-                            for j = 1, 5 do Event:FireServer(stain, 1) end
+                            for j = 1, 5 do Event:FireServer(stains[i], 1) end
                          end
                       end
                    end)
@@ -389,7 +452,6 @@ task.spawn(function()
        end,
     })
 
-    -- 【機能 8】超高速家具掃除
     local isFurnitureCleanActive = false
     TabMain:CreateToggle({
        Name = "⚡ 超高速オート家具掃除",
@@ -427,7 +489,6 @@ task.spawn(function()
     -- =========================================
     TabESP:CreateSection("視覚化 (ESP)")
 
-    -- 【機能 9】Stains(汚れ) 近距離ESP
     local isStainEspActive = false
     TabESP:CreateToggle({
        Name = "🧽 Stains 近距離ESP (80studs)",
@@ -485,7 +546,6 @@ task.spawn(function()
        end,
     })
 
-    -- 【機能 10】敵 (Monster) ESP
     local isMonsterEspActive = false
     TabESP:CreateToggle({
        Name = "👹 敵 (Monster) ESP",
@@ -493,7 +553,6 @@ task.spawn(function()
        Flag = "MonsterEspToggle",
        Callback = function(Value)
           isMonsterEspActive = Value
-          -- ⚠️修正箇所: me という文字を削除し、正常に条件分岐するようにしました
           if isMonsterEspActive then
              task.spawn(function()
                 while isMonsterEspActive do
