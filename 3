@@ -1,0 +1,434 @@
+-- Script Path: game:GetService("ReplicatedStorage").Modules.Items.Item
+-- Took 0.02s to decompile.
+-- Executor: Delta (1.0.729.838)
+
+local v1 = game:GetService("RunService")
+local v2 = {}
+v2.__index = v2
+v2.anim = {}
+v2.sound = {}
+v2.equip_offset = CFrame.new(0, -1, 0)
+v2.holster_part = nil
+v2.image = "rbxassetid://70582395545436"
+v2.icon = "rbxassetid://70582395545436"
+v2.display_name = "?"
+v2.description = "?"
+v2.client_sided_hitscan = true
+if v1:IsServer() then
+    return v2
+end
+local v_u_3 = require(game.ReplicatedStorage.Modules.Input)
+local v_u_4 = require(game.ReplicatedStorage.Modules.Util)
+local v_u_5 = require(game.ReplicatedStorage.Modules.StateObject)
+local v_u_6 = require(game.ReplicatedStorage.Modules.State)
+local v_u_7 = require(game.ReplicatedStorage.Modules.Data)
+local v_u_8 = require(game.ReplicatedStorage.Modules.UI)
+local v_u_9 = require(game.ReplicatedStorage.Modules.Items)
+local v_u_10 = require(game.ReplicatedStorage.Modules.Globals)
+local v_u_11 = require(script.Sounds)
+v2.sound = setmetatable({}, {
+    ["__index"] = function(_, p12) -- name: __index
+        -- upvalues: (copy) v_u_11
+        return v_u_11[p12]
+    end
+})
+function v2.init(_) -- name: init end
+function v2.hook_ui(p_u_13, p_u_14) -- name: hook_ui
+    local v15 = p_u_13.hooked_labels
+    table.insert(v15, p_u_14)
+    p_u_14.Destroying:Connect(function()
+        -- upvalues: (copy) p_u_13, (copy) p_u_14
+        local v16 = table.find(p_u_13.hooked_labels, p_u_14)
+        if v16 then
+            table.remove(p_u_13.hooked_labels, v16)
+        end
+    end)
+    p_u_13:update_ui()
+end
+function v2.load_instance(p_u_17) -- name: load_instance
+    -- upvalues: (copy) v_u_5, (copy) v_u_4, (copy) v_u_3
+    if p_u_17.tag then
+        p_u_17.object = v_u_5.get(p_u_17.tag, p_u_17.instance)
+        p_u_17.states = p_u_17.object.states
+    end
+    if p_u_17.stats then
+        for v18, v19 in p_u_17.stats do
+            if p_u_17.states[v18] and p_u_17.states[v18].rec then
+                p_u_17.states[v18]:set(v19)
+            end
+        end
+    end
+    if p_u_17.object then
+        p_u_17.object.owner:hook(function(p20)
+            -- upvalues: (ref) v_u_5, (copy) p_u_17, (ref) v_u_4, (ref) v_u_3
+            if p20 and (p20.Parent and p20:HasTag("Character")) then
+                local v21 = v_u_5.get("Character", p20)
+                while not v21.values.character_loaded and v21.instance.Parent do
+                    task.wait()
+                end
+                if v21.values.character_loaded then
+                    p_u_17:set_owner(v21)
+                    if v_u_4.ownership(p20) >= 3 and p_u_17.inputs == nil then
+                        p_u_17.inputs = v_u_3.get_input_dictionary(p_u_17.instance)
+                        p_u_17:hook_inputs()
+                        return
+                    end
+                end
+            elseif p_u_17.inputs then
+                p_u_17.inputs:disable()
+            end
+        end)
+    end
+end
+function v2.set_owner(p22, p23) -- name: set_owner
+    local v24 = p22.owner
+    p22.owner = p23
+    if v24 == nil then
+        p22:hook_states()
+        p22:setup_base_animations()
+        p22:set_part_pivots()
+        p22:setup_holster()
+        p22:setup_running()
+    end
+end
+function v2.setup_holster(p_u_25) -- name: setup_holster
+    if p_u_25.owner and (p_u_25.holster_offset and (p_u_25.holster_part and p_u_25.holster_item)) then
+        task.spawn(function()
+            -- upvalues: (copy) p_u_25
+            while not p_u_25.owner.values.character_loaded and p_u_25.owner.instance.Parent do
+                task.wait()
+            end
+            if p_u_25.owner.values.character_loaded then
+                p_u_25.owner.values.items[p_u_25.instance] = p_u_25
+                if p_u_25.owner.states.holding:get() ~= p_u_25.instance and p_u_25.owner.states.equipped:get() ~= p_u_25.instance then
+                    task.defer(p_u_25.holster, p_u_25)
+                end
+                if p_u_25.holster_part == "head" then
+                    p_u_25.instance.Destroying:Connect(p_u_25.owner.values.camera:hook(function(p26)
+                        -- upvalues: (ref) p_u_25
+                        if p26 then
+                            for _, v27 in p_u_25.instance:GetDescendants() do
+                                if v27:IsA("BasePart") then
+                                    v27:SetAttribute("OriginalTransparency", v27.Transparency)
+                                    v27.Transparency = 1
+                                end
+                            end
+                        else
+                            for _, v28 in p_u_25.instance:GetDescendants() do
+                                if v28:IsA("BasePart") and v28:GetAttribute("OriginalTransparency") then
+                                    v28.Transparency = v28:GetAttribute("OriginalTransparency")
+                                end
+                            end
+                        end
+                    end).unhook)
+                end
+            end
+        end)
+    end
+end
+function v2.holster(p29, p30) -- name: holster
+    -- upvalues: (copy) v_u_4
+    local v31 = p30 or p29.owner
+    if p29.holster_item then
+        p29.instance.Root:PivotTo(v31.values.viewmodels[p29.holster_part]:GetPivot() * p29.holster_offset)
+        p29.instance.Parent = v31.values.viewmodels[p29.holster_part]
+        local v32 = p29.instance.PrimaryPart
+        v_u_4.weld_c(v32, v31.values.viewmodels[p29.holster_part]).Name = "HolsterWeld"
+    else
+        p29.instance.Parent = v31.values.Items
+    end
+end
+function v2.unholster(p33, p34) -- name: unholster
+    local v35 = p34 or p33.owner
+    p33.instance.Parent = v35.values.viewmodels
+    if p33.holster_item then
+        local v36 = p33.instance.PrimaryPart
+        local v37 = v36:FindFirstChild("HolsterWeld")
+        if v37 then
+            v37:Destroy()
+            v36.Anchored = true
+        end
+    end
+    local v38 = p33.cframes:get(p33.instance.Root)
+    v38.pivot_offset = CFrame.new()
+    v38.absolute_offset = CFrame.new()
+    if p33.owner then
+        p33:render(p33.owner, 0.016666666666666666)
+    end
+end
+function v2.hook_states(_) -- name: hook_states end
+function v2.hook_attachment_states(p_u_39, p_u_40) -- name: hook_attachment_states
+    -- upvalues: (copy) v_u_10, (copy) v_u_9
+    for _, v41 in v_u_10.attachment_types do
+        if p_u_39.states[v41 .. "_att"] then
+            p_u_39.states[v41 .. "_att"]:hook(function(p42, p43)
+                -- upvalues: (ref) v_u_9, (copy) p_u_40, (copy) p_u_39
+                if p43 and (p43 ~= "" and p42 ~= p43) then
+                    v_u_9.get_item_class(p43):remove(p_u_40 and {
+                        ["instance"] = p_u_40
+                    } or p_u_39)
+                end
+                if p42 and p42 ~= "" then
+                    v_u_9.get_item_class(p42):apply(p_u_40 and {
+                        ["instance"] = p_u_40
+                    } or p_u_39)
+                end
+            end)
+        end
+    end
+end
+function v2.setup_base_animations(p_u_44) -- name: setup_base_animations
+    if p_u_44.instance.PrimaryPart then
+        p_u_44.cframes:get(p_u_44.instance.Root).pivot_time = 0.3
+        if p_u_44.holster_offset and p_u_44.holster_part then
+            p_u_44.cframes:get(p_u_44.instance.Root):set_pivot("general", function(_)
+                -- upvalues: (copy) p_u_44
+                return p_u_44.owner.values.viewmodels[p_u_44.holster_part]:GetPivot() * p_u_44.holster_offset
+            end)
+        else
+            p_u_44.cframes:get(p_u_44.instance.Root):set_pivot("general", function(_)
+                -- upvalues: (copy) p_u_44
+                return p_u_44.owner.values.viewmodels.arm1:GetPivot() * p_u_44.equip_offset
+            end)
+        end
+        p_u_44.cframes:get(p_u_44.instance.Root):create_pivot("equipped", function(_)
+            -- upvalues: (copy) p_u_44
+            return p_u_44.owner.values.viewmodels.arm1:GetPivot() * p_u_44.equip_offset
+        end)
+        if p_u_44.right_hand_hold then
+            p_u_44.cframes:get(p_u_44.instance.Root):create_pivot("equipped2", function(_)
+                -- upvalues: (copy) p_u_44
+                local v45 = p_u_44.owner.values.viewmodels.arm2:GetPivot()
+                if p_u_44.offsets and p_u_44.offsets.arm2 then
+                    for _, v46 in p_u_44.offsets.arm2 do
+                        v45 = v45 * v46:Inverse()
+                    end
+                end
+                return v45 * p_u_44.right_hand_hold
+            end)
+        end
+    end
+end
+function v2.hook_inputs(_) -- name: hook_inputs end
+function v2.set_part_pivots(_) -- name: set_part_pivots end
+function v2.running_pivots_hands(_, p47, p48) -- name: running_pivots_hands
+    local v49 = p47.values.cframes
+    if p48 then
+        v49:get("arm1"):set_absolute("general")
+        v49:get("arm1"):set_pivot("base_running", v49:get("arm1"):get_pivot("base"))
+        v49:get("arm2"):set_absolute("general")
+        v49:get("arm2"):set_pivot("base_running", v49:get("arm2"):get_pivot("base"))
+    else
+        v49:get("arm1"):remove_absolute("general")
+        v49:get("arm1"):remove_pivot("base_running")
+        v49:get("arm2"):remove_absolute("general")
+        v49:get("arm2"):remove_pivot("base_running")
+    end
+end
+function v2.running_pivots(_, p50, p51) -- name: running_pivots
+    local v52 = p50.values.cframes
+    if p51 then
+        v52:get("arm1"):set_pivot("running")
+        v52:get("arm2"):set_pivot("running")
+        v52:get("arms"):set_pivot("running")
+    else
+        v52:get("arm1"):remove_pivot("running")
+        v52:get("arm2"):remove_pivot("running")
+        v52:get("arms"):remove_pivot("running")
+    end
+end
+function v2.setup_running(p_u_53) -- name: setup_running
+    -- upvalues: (copy) v_u_6
+    p_u_53.running_state = v_u_6.new(false)
+    p_u_53.running_state:hook(function(p54, p55)
+        -- upvalues: (copy) p_u_53
+        if p54 ~= p55 then
+            p_u_53:running(p_u_53.owner, p54)
+        end
+    end)
+    p_u_53.owner.states.running:hook(function(p56)
+        -- upvalues: (copy) p_u_53
+        if not p56 then
+            p_u_53.running_state:set(false)
+        end
+    end)
+end
+function v2.running(p57, p58, p59) -- name: running
+    local v60 = p58.values.cframes:get("arms"):get_offset("run")
+    if p59 then
+        p57:running_pivots(p58, true)
+        p58.values.cframes:get("arms"):set_offset("run")
+        p57.anim.Run.run_offset(v60)
+    else
+        p57:running_pivots(p58, false)
+        p57.anim.Run.base(v60).Completed:Wait()
+        p58.values.cframes:get("arms"):remove_offset("run")
+    end
+end
+function v2.equip_item(p61, p62) -- name: equip_item
+    -- upvalues: (copy) v_u_7
+    if p62.states.equipped:get() == p61.instance and v_u_7.settings.unequip_items then
+        p62.states.equipped:set(p62.values.hands)
+    else
+        p62.states.equipped:set(p61.instance)
+    end
+end
+function v2.emit_blood(_, p63, _) -- name: emit_blood
+    -- upvalues: (copy) v_u_7
+    if v_u_7.settings.player_blood then
+        local v64 = script.Particles.Normal:Clone()
+        v64.Parent = p63
+        v64.Speed = NumberRange.new(2, 3)
+        v64.Lifetime = NumberRange.new(0.3, 0.6)
+        v64.Color = ColorSequence.new(Color3.fromRGB(220, 22, 26))
+        v64.Acceleration = Vector3.new(0, -5, 0)
+        v64:Emit(7)
+    end
+end
+v2.hit_marker = v_u_4.ov(function(_)
+    -- upvalues: (copy) v_u_8, (copy) v_u_4
+    local v65 = v_u_8.get("HitMarker")
+    for _, v66 in v65:GetChildren() do
+        v66.Visible = true
+        v_u_4.tween(v66.UIStroke, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            ["Transparency"] = 0.5
+        })
+    end
+    task.wait(0.15)
+    for _, v67 in v65:GetChildren() do
+        v_u_4.tween(v67.UIStroke, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+            ["Transparency"] = 1
+        })
+    end
+    task.wait(0.15)
+    for _, v68 in v65:GetChildren() do
+        v68.Visible = false
+    end
+end)
+function v2.ray_damage(_, p69, p70, p71, p_u_72, p_u_73) -- name: ray_damage
+    -- upvalues: (copy) v_u_4
+    local v_u_74 = {}
+    local v_u_75 = 0
+    v_u_4.parts_on_ray(p69, p70, p71, function(p76)
+        -- upvalues: (ref) v_u_4, (copy) p_u_72, (copy) v_u_74, (ref) v_u_75, (copy) p_u_73
+        if p76 == nil then
+            return false
+        end
+        if p76.Instance.CollisionGroup == "char_block" then
+            return true
+        end
+        local v77 = {
+            ["Instance"] = p76.Instance,
+            ["Position"] = p76.Position,
+            ["Normal"] = p76.Normal
+        }
+        local v78 = v77.Instance
+        local v79 = v78.Parent
+        if v_u_4.can_damage(v78) and (not v78:GetAttribute("BulletImmune") or p_u_72 ~= nil) then
+            local v80 = v_u_74
+            table.insert(v80, v77)
+            v_u_75 = v_u_75 + 1
+        elseif (v78.Transparency == 0 or v78:GetAttribute("Soft")) and ((v79:GetAttribute("Viewmodels") or v79:FindFirstChild("Humanoid")) and v_u_4.can_ray_reach(v77.Position, v78.Position, { v78 })) then
+            local v81 = v_u_74
+            table.insert(v81, v77)
+            if v79:GetAttribute("Viewmodels") or v79:HasTag("Character") then
+                v77.HitHum = true
+            end
+            v_u_75 = v_u_75 + 1
+            if p_u_72 ~= nil or (v78.Name == "head" or v78.Name == "torso") then
+                return false
+            end
+        elseif (v78.CanCollide or v78:GetAttribute("Soft")) and v78.Transparency < 1 then
+            if v78.CollisionGroup == "prop" then
+                return true
+            end
+            local v82 = v_u_74
+            table.insert(v82, v77)
+            if not (v78:GetAttribute("Soft") or v79:GetAttribute("Soft")) then
+                return false
+            end
+            v_u_75 = v_u_75 + 1
+        end
+        if v_u_75 > 1 then
+            return false
+        end
+        if p_u_73 then
+            if v78.Transparency == 0 then
+                return false
+            end
+        elseif v78:GetAttribute("Hard") or (v79:GetAttribute("Hard") or v78.CanQuery and (v78.CanCollide and not (v78:GetAttribute("Soft") or v79:GetAttribute("Soft")))) then
+            return false
+        end
+        return true
+    end, p_u_72)
+    return v_u_74
+end
+function v2.process_hit_results(p83, p84, p85) -- name: process_hit_results
+    -- upvalues: (copy) v_u_4
+    local v86 = {}
+    local v87 = false
+    local v88 = false
+    local v89 = true
+    for _, v90 in p85 do
+        local v91 = v90.Instance
+        local v92 = v90.Normal
+        local v93 = v90.Position
+        if v90.HitHum and not v86[v91.Parent] then
+            v86[v91.Parent] = true
+            local v94 = Instance.new("Attachment")
+            v94.Parent = game.Workspace.Terrain
+            v94.WorldCFrame = CFrame.new(v93) * CFrame.lookAt(Vector3.new(0, 0, 0), v92)
+            v_u_4.debris(v94, 1)
+            p83:emit_blood(v94, v91.Color)
+            p83.sound.BodyHit(v94)
+            v89 = false
+        elseif v91 and v91.Anchored then
+            if not v87 then
+                local v95 = CFrame.new(v93 - p84.LookVector * 0.3) * CFrame.lookAt(Vector3.new(0, 0, 0), v92)
+                local v96 = v_u_4.create_sphere_attachment(v95.Position, 1)
+                p83.sound.Hit(v96)
+                v87 = true
+                v89 = false
+            end
+            if v91:HasTag("Breakable") or v91.Parent:HasTag("Breakable") then
+                v88 = true
+            end
+        end
+    end
+    if v88 and p83.owner.values.camera:get() then
+        p83.hit_marker(p83)
+    end
+    return v89
+end
+function v2.setup_blocking_part(p_u_97) -- name: setup_blocking_part
+    -- upvalues: (copy) v_u_4
+    if p_u_97.states.gun then
+        p_u_97.states.gun:hook(function(p98)
+            -- upvalues: (copy) p_u_97, (ref) v_u_4
+            if p98 then
+                local v99 = p98:WaitForChild(p_u_97.instance.Name)
+                local v100 = p_u_97.instance
+                local v101 = v100:WaitForChild("Root")
+                local v102 = v99:WaitForChild("Root")
+                v100:WaitForChild("JointMotor").Enabled = false
+                v101:PivotTo(v99:GetPivot())
+                v_u_4.weld_c(v101, v102)
+            end
+        end)
+    elseif p_u_97.states.blocker then
+        p_u_97.states.blocker:hook(function(p103)
+            -- upvalues: (copy) p_u_97, (ref) v_u_4
+            if p103 then
+                local v104 = p_u_97.instance
+                local v105 = p103:WaitForChild("Root")
+                local v106 = v104:WaitForChild("Root")
+                p103:WaitForChild("JointMotor").Enabled = false
+                v105:PivotTo(v104:GetPivot())
+                v_u_4.weld_c(v105, v106)
+            end
+        end)
+    end
+end
+function v2.update_ui(_) -- name: update_ui end
+function v2.render(_, _, _) -- name: render end
+return v2
