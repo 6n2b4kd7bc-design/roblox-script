@@ -1,0 +1,29 @@
+-- Script Path: game:GetService("ReplicatedStorage").Modules
+-- Took 0s to decompile.
+-- Executor: Delta (1.0.729.838)
+
+local v_u_3 = {
+    ["loaded"] = require(game.ReplicatedStorage.Modules.State).new(false),
+    ["load"] = function() -- name: load
+        -- upvalues: (copy) v_u_3
+        if not v_u_3.loaded:get() then
+            v_u_3.loaded:set(true)
+            for _, v1 in script:GetDescendants() do
+                if v1.ClassName == "ModuleScript" then
+                    local v2 = require(v1)
+                    if v2.load then
+                        if v1.Name == "Loading" then
+                            v2.load()
+                        else
+                            task.defer(v2.load)
+                        end
+                    end
+                    if v2.stats then
+                        table.freeze(v2.stats)
+                    end
+                end
+            end
+        end
+    end
+}
+return v_u_3
