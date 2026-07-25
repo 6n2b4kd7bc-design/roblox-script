@@ -1,0 +1,557 @@
+-- Script Path: game:GetService("ReplicatedStorage").Modules.Items.Item.Utility.GrapplingHook
+-- Took 0.01s to decompile.
+-- Executor: Delta (1.0.729.838)
+
+local v_u_1 = game:GetService("RunService")
+local v_u_2 = require(script.Parent)
+local v_u_3 = {}
+v_u_3.__index = v_u_3
+setmetatable(v_u_3, v_u_2)
+v_u_3.tag = script.Name
+v_u_3.loadout_type = "utility"
+v_u_3.equip_offset = CFrame.new(0, -0.65, -0.3) * CFrame.Angles(-1.5707963267948966, 0, 1.5707963267948966)
+v_u_3.holster_offset = CFrame.new(-0.75, -0.8, 0) * CFrame.Angles(0, 3.141592653589793, 0)
+v_u_3.model = script.Model
+v_u_3.image = "rbxassetid://88240098279970"
+v_u_3.icon = "rbxassetid://89373239515521"
+v_u_3.display_name = "Grappling Hook"
+v_u_3.description = "Go up to a wall or ledge and rappel onto it"
+if v_u_1:IsServer() then
+    return v_u_3
+end
+local v_u_4 = require(game.ReplicatedStorage.Modules.StateObject)
+local v_u_5 = require(game.ReplicatedStorage.Modules.State)
+require(game.ReplicatedStorage.Modules.Event)
+local v_u_6 = require(game.ReplicatedStorage.Modules.Util)
+local v_u_7 = require(game.ReplicatedStorage.Modules.Input)
+require(game.ReplicatedStorage.Modules.UI)
+require(game.ReplicatedStorage.Modules.Timer)
+require(game.ReplicatedStorage.Modules.Interact)
+local v_u_8 = require(game.ReplicatedStorage.Modules.Maid)
+require(game.ReplicatedStorage.Modules.Audio)
+local v_u_9 = require(game.ReplicatedStorage.Modules.FirstPersonInterface)
+require(game.ReplicatedStorage.Modules.CastVisuals)
+local v_u_10 = require(game.ReplicatedStorage.Modules.Items)
+local _ = game.Players.LocalPlayer
+function v_u_3.new() -- name: new
+    -- upvalues: (copy) v_u_3
+    local v11 = v_u_3
+    return setmetatable({}, v11)
+end
+local v_u_12 = require(script.Animations)
+local v_u_13 = require(script.Sounds)
+v_u_3.anim = setmetatable({}, {
+    ["__index"] = function(_, p14) -- name: __index
+        -- upvalues: (copy) v_u_12, (copy) v_u_2
+        return v_u_12[p14] or v_u_2.anim[p14]
+    end
+})
+v_u_3.sound = setmetatable({}, {
+    ["__index"] = function(_, p15) -- name: __index
+        -- upvalues: (copy) v_u_13, (copy) v_u_2
+        return v_u_13[p15] or v_u_2.sound[p15]
+    end
+})
+function v_u_3.init(p16) -- name: init
+    -- upvalues: (copy) v_u_6
+    p16.move_position = script.AlignPosition:Clone()
+    p16.move_rotation = script.AlignOrientation:Clone()
+    p16:setup_prop()
+    p16.throw_thread = v_u_6.ov(p16.throw)
+    p16.throw_thread:cancelled(p16.throw_cancel)
+    p16.throw_thread:done(p16.throw_cancel)
+    p16.zipping = p16.sound.Zipping()
+    p16.ropping = p16.sound.Ropping()
+    p16:load_instance()
+end
+function v_u_3.setup_prop(p17) -- name: setup_prop
+    p17.hook_prop = script.Model:Clone()
+    p17.hook_prop.Root.Anchored = false
+    for _, v18 in script.RootAttachments:Clone():GetChildren() do
+        v18.Parent = p17.hook_prop.Root
+    end
+end
+function v_u_3.set_part_pivots(p_u_19) -- name: set_part_pivots
+    p_u_19.cframes:get(p_u_19.instance.Root):get_pivot("equipped", function(_)
+        -- upvalues: (copy) p_u_19
+        return p_u_19.owner.values.viewmodels.arm2.CFrame * p_u_19.equip_offset
+    end)
+end
+function v_u_3.step_render(p20, p21) -- name: step_render
+    -- upvalues: (copy) v_u_6
+    if p20.states.rappeling:get() and p20.owner ~= nil then
+        local v22 = p20.owner.instance
+        local v23 = v22:FindFirstChild("Humanoid")
+        if v23 == nil then
+            return
+        else
+            local v24 = v22:FindFirstChild("HumanoidRootPart")
+            if v24 ~= nil then
+                local v25 = p20.owner.states.look:get()
+                local v26 = v25.X
+                local v27 = v25.Z
+                local v28 = Vector3.new(v26, 0, v27).Unit
+                local v29, v30 = v_u_6.get_move_components(v23.MoveDirection, v28)
+                local v31 = p20.ropping
+                local v32 = v_u_6.frame_lerp
+                local v33 = p20.ropping.Volume
+                local v34 = v24.AssemblyLinearVelocity.Magnitude * 10
+                v31.Volume = v32(v33, math.min(1, v34) * 0.15, 0.3, p21)
+                if p20.inputs and p20.inputs.enabled:get() then
+                    p20:input_render(p20.owner, p21, v29, v30)
+                    p20.dt_passed = p20.dt_passed + p21
+                    if p20.dt_passed >= 1 then
+                        p20.dt_passed = 0
+                        local v35 = align_cframe_by_right_vector(p20.rappel_end, p20.owner.instance.HumanoidRootPart.CFrame)
+                        if (v35.Position - p20.states.hook:get().Position).Magnitude > 1 then
+                            local v36 = snap_cframe(v35)
+                            if workspace:Spherecast(v36.Position + Vector3.new(0, 1, 0), 0.3, Vector3.new(0, -2, 0), p20.owner.values.ray_params) then
+                                p20.states.hook:set(v36)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    else
+        return
+    end
+end
+function v_u_3.hook_states(p_u_37) -- name: hook_states
+    -- upvalues: (copy) v_u_8, (copy) v_u_1, (copy) v_u_10
+    p_u_37.dt_passed = 0
+    local v_u_38 = v_u_8.new()
+    p_u_37.object:destroying(function()
+        -- upvalues: (copy) v_u_38
+        v_u_38:clean()
+    end)
+    p_u_37.states.hook:hook(function(p39, p40)
+        -- upvalues: (copy) p_u_37
+        if p_u_37.owner then
+            p_u_37:rappel_hook(p_u_37.owner, p39, p40)
+        end
+    end)
+    p_u_37.states.rappeling:hook(function(p41, _)
+        -- upvalues: (copy) v_u_38, (copy) p_u_37, (ref) v_u_1
+        v_u_38:clean()
+        if p41 then
+            p_u_37.owner.states.climbing:set(2)
+            v_u_38:add(v_u_1.RenderStepped:Connect(function(p42)
+                -- upvalues: (ref) p_u_37
+                p_u_37:step_render(p42)
+            end))
+        else
+            p_u_37.owner.states.climbing:set(0)
+            p_u_37.states.hook:set(CFrame.new())
+        end
+    end)
+    p_u_37.states.skin_att:hook(function(p43, p44)
+        -- upvalues: (ref) v_u_10, (copy) p_u_37
+        if p44 and (p44 ~= "" and p43 ~= p44) then
+            local v45 = v_u_10.get_item_class(p44)
+            v45:remove(p_u_37)
+            v45:remove({
+                ["instance"] = p_u_37.hook_prop
+            })
+        end
+        if p43 and p43 ~= "" then
+            local v46 = v_u_10.get_item_class(p43)
+            v46:apply(p_u_37)
+            v46:apply({
+                ["instance"] = p_u_37.hook_prop
+            })
+        end
+    end)
+end
+function v_u_3.rappel_hook(p47, p48, p49, p50) -- name: rappel_hook
+    -- upvalues: (copy) v_u_6
+    if p49 == p50 then
+        return
+    elseif p49 == CFrame.new() then
+        p47.throw_thread:cancel(p47, p48)
+        p47.hook_prop.Parent = nil
+        p47.sound.Zip2(p47.instance.Root)
+        p47.zipping.Parent = nil
+        p47.ropping.Parent = nil
+        local v51 = p48.values.cframes:get("arm2"):get_absolute("putback")
+        p48.values.cframes:get("arm2"):set_pivot("base")
+        p48.values.cframes:get("arm2"):set_absolute("putback", true)
+        p47.anim.Equip.arm2_grab(v51).Completed:Wait()
+        p48.values.cframes:get("arm2"):remove_absolute("putback")
+        p48.values.cframes:get("arm2"):remove_pivot("base")
+        p47:holster(p48)
+    else
+        p47:holster(p48)
+        p47.hook_prop.Parent = p48.values.viewmodels
+        if p50 == CFrame.new() then
+            p47.throw_thread(p47, p48)
+            p47.hook_prop.Root.CFrame = p49
+            p47.hook_prop.Root.AlignPosition.Position = p49.Position
+            p47.hook_prop.Root.AlignOrientation.CFrame = p49 * CFrame.Angles(0, 1.5707963267948966, 0)
+            p47.zipping.Parent = p47.owner.instance.collision
+            p47.ropping.Parent = p47.owner.instance.collision
+        else
+            v_u_6.tween(p47.hook_prop.Root.AlignPosition, TweenInfo.new(0.3), {
+                ["Position"] = p49.Position
+            })
+        end
+        p47.hook_prop.Root.Rope.Attachment1 = p48.instance.HumanoidRootPart.BaseAttachment
+    end
+end
+function v_u_3.throw(p52, p53) -- name: throw
+    local v54 = p53.values.cframes:get("arm2"):get_absolute("throw")
+    local v55 = p53.values.cframes:get("camera"):get_offset("throw")
+    p53.values.cframes:get("camera"):set_offset("throw")
+    p53.values.cframes:get("arm2"):set_absolute("throw", true)
+    p52.sound.Zip(p52.instance.Root)
+    p52.anim.Equip.cam1(v55)
+    p52.anim.Equip.arm2_throw(v54).Completed:Wait()
+end
+function v_u_3.throw_cancel(p56, p57) -- name: throw_cancel
+    local v58 = p57.values.cframes:get("camera"):get_offset("throw")
+    p57.values.cframes:get("arm2"):remove_absolute("throw")
+    p56.anim.Equip.cam2(v58).Completed:Wait()
+    p57.values.cframes:get("camera"):remove_offset("throw")
+end
+function v_u_3.equip(p59, p60, p61) -- name: equip
+    local v62 = p60.values.cframes:get("arm2"):get_absolute("holding")
+    if p61 == true then
+        p59:unholster(p60)
+        p60.values.cframes:get("arm2"):set_pivot("base")
+        p60.values.cframes:get("arm2"):set_absolute("holding", true)
+        p60.states.lean:set(0)
+        p60.states.walk_state:set("stand")
+        p59.anim.Equip.arm2_grab(v62).Completed:Wait()
+        p59.sound.Equip(p59.instance.Root)
+        p60.values.cframes:get("arm2"):set_pivot("holding", p60.values.cframes:get("arm2"):get_pivot("equipped"))
+        p59.cframes:get(p59.instance.Root):set_pivot("equipped")
+        p59.anim.Equip.arm2_hold(v62)
+    else
+        p60.values.cframes:get("arm2"):remove_pivot("holding")
+        p59.anim.Equip.arm2_grab(v62).Completed:Wait()
+        p59.cframes:get(p59.instance.Root):remove_pivot("equipped")
+        p60.values.cframes:get("arm2"):remove_absolute("holding")
+        p60.values.cframes:get("arm2"):remove_pivot("base")
+        p59:holster(p60)
+    end
+end
+function v_u_3.render(p63, _, p64) -- name: render
+    p63.instance.Root:PivotTo(p63.cframes:get(p63.instance.Root):render(p64))
+end
+function align_cframe_by_right_vector(p65, p66) -- name: align_cframe_by_right_vector
+    local v67 = p66.Position - p65.Position
+    local v68 = p65.RightVector:Dot(v67)
+    return p65 + p65.RightVector * v68
+end
+function v_u_3.input_render(p69, p70, p71, p72, p73) -- name: input_render
+    p69.rappel_time = p69.rappel_time - p71
+    if p69.rappel_time <= 0 then
+        local v74 = p70.instance
+        v74.collision.CollisionGroup = "char"
+        v74.collision2.CollisionGroup = "char"
+        v74.collision3.CollisionGroup = "char"
+        local _ = v74.Humanoid
+        local v75 = v74.HumanoidRootPart
+        if p70.values.reversed:get() then
+            p72 = -p72
+        end
+        local v76 = p70.values.equipped
+        if p69.descending and (v76 and (v76.states.sights == nil or not v76.states.sights:get())) then
+            p73 = -2
+            p72 = 0
+        end
+        local v77 = not p70.values.walking:get() and 0 or p72
+        local v78 = CFrame.new(p69.move_position.Position + p69.rappel_start.UpVector * p73 * 4 * p71 + p69.rappel_start.RightVector * v77 * 1)
+        local v79 = align_cframe_by_right_vector(p69.rappel_end, v78)
+        local v80 = p69.states.hook:get()
+        if p69.inputs.enabled:get() then
+            if v77 ~= 0 then
+                if workspace:Spherecast(v79.Position + Vector3.new(0, 1, 0), 0.3, Vector3.new(0, -2, 0), p70.values.ray_params) and not workspace:Spherecast(v80.Position + Vector3.new(0, 1, 0), 0.3, v79.Position - v80.Position + Vector3.new(0, 1, 0), p70.values.ray_params) then
+                    local v81 = workspace
+                    local v82 = v78.Position
+                    local v83 = v79.Y - v78.Y
+                    v77 = v81:Spherecast(v82, 0.3, Vector3.new(0, v83, 0), p70.values.ray_params) and 0 or v77
+                else
+                    v77 = 0
+                end
+            end
+            if math.abs(v77) > 0.01 or p73 > 0 then
+                p73 = workspace:Spherecast(p69.move_position.Position, 0.3, Vector3.new(0, 3.5, 0), p70.values.ray_params) and 0 or p73
+            end
+            local v84 = p69.move_position
+            v84.Position = v84.Position + (p69.rappel_start.UpVector * p73 * 4 * p71 + p69.rappel_start.RightVector * v77 * 4 * p71)
+            local v85 = p69.move_position
+            local v86 = p69.move_position.Position.X
+            local v87 = p69.move_position.Position.Y
+            local v88 = p69.rappel_end.Y - 0.3
+            local v89 = math.min(v87, v88)
+            local v90 = p69.move_position.Position.Z
+            v85.Position = Vector3.new(v86, v89, v90)
+            if workspace:Spherecast(v75.Position + Vector3.new(0, 1, 0), 0.1, Vector3.new(0, -2.5, 0), p70.values.ray_params) or not workspace:Spherecast(v80.Position + Vector3.new(0, 1, 0), 0.3, Vector3.new(0, -2, 0), p70.values.ray_params) then
+                p69.states.rappeling:set(false)
+            end
+        end
+    end
+end
+function snap_cframe(p91) -- name: snap_cframe
+    local v92 = p91.LookVector
+    local v93 = -v92.X
+    local v94 = -v92.Z
+    local v95 = math.atan2(v93, v94) / 1.5707963267948966
+    local v96 = math.round(v95) * 1.5707963267948966
+    return CFrame.new(p91.Position) * CFrame.Angles(0, v96, 0)
+end
+function v_u_3.start_rappel_mode(p97, p98, p99, p100) -- name: start_rappel_mode
+    -- upvalues: (copy) v_u_6
+    local v101 = p98.instance
+    local v102 = v101.HumanoidRootPart
+    p97.move_position.Position = v102.CFrame.Position
+    p97.move_position.Parent = v102
+    p97.move_position.Attachment0 = v102.RootAttachment
+    p97.rappel_start = snap_cframe(p99)
+    p97.rappel_end = snap_cframe(p100)
+    p97.states.hook:set(p97.rappel_end)
+    if v102.CFrame.Y > p99.Y then
+        local v103 = v102.CFrame.Position + Vector3.new(0, 1, 0)
+        local v104 = p99.Position.X
+        local v105 = v103.Y
+        local v106 = p99.Position.Z
+        local v107 = Vector3.new(v104, v105, v106) + v102.CFrame.LookVector * 2
+        v_u_6.cubic_tween(p97.move_position, TweenInfo.new(0.6, Enum.EasingStyle.Sine), {
+            ["Position"] = v103
+        }, {
+            ["Position"] = v107
+        }, {
+            ["Position"] = p99.Position - Vector3.new(0, 1.5, 0)
+        })
+        p97.rappel_time = 0.6
+        v101.collision.CollisionGroup = "char_anim"
+        v101.collision2.CollisionGroup = "char_anim"
+        v101.collision3.CollisionGroup = "char_anim"
+    else
+        v_u_6.tween(p97.move_position, TweenInfo.new(0.3, Enum.EasingStyle.Sine), {
+            ["Position"] = p99.Position + Vector3.new(0, 1, 0)
+        })
+        p97.rappel_time = 0.3
+        v101.collision.CollisionGroup = "char_anim"
+        v101.collision2.CollisionGroup = "char_anim"
+        v101.collision3.CollisionGroup = "char_anim"
+    end
+    p97.states.rappeling:set(true)
+end
+function v_u_3.stop_rappel_mode(p108, p109) -- name: stop_rappel_mode
+    p108.move_position.Parent = nil
+    p108.states.rappeling:set(false)
+    p109.states.climbing:set(0)
+end
+function v_u_3.can_rappel(p110, p111) -- name: can_rappel
+    -- upvalues: (copy) v_u_6
+    local v_u_112 = p110.owner
+    local v113 = v_u_112.instance
+    local v_u_114 = v113.HumanoidRootPart
+    if v_u_112 and (not v_u_112.values.equip_debounce:get() and (not v_u_114:FindFirstChildWhichIsA("AlignPosition") and (p111.states.climbing:get() == 0 and (v_u_112.states.walk_state:get() == "stand" and (v_u_112.states.vault:get() == 0 and (not v_u_112.values.falling:get() and v_u_112.values.camera:get())))))) then
+        local v115 = CFrame.new(v113.collision2.CFrame.X, v113.collision.CFrame.Y, v113.collision2.CFrame.Z) * v113.collision2.CFrame.Rotation + Vector3.new(0, -0.7, 0) - v_u_114.CFrame.LookVector * 0.5
+        local v_u_116 = workspace:Blockcast(v115, Vector3.new(0.3, 2, 0.3), v_u_114.CFrame.LookVector * 4, v_u_112.values.ray_params)
+        if v_u_116 and v_u_116.Instance.Anchored then
+            local v117 = v_u_116.Position.X
+            local v118 = v115.Position.Y
+            local v119 = v_u_116.Position.Z
+            local v_u_120 = Vector3.new(v117, v118, v119)
+            local v121 = workspace:Spherecast(v_u_120 - v_u_114.CFrame.LookVector * 2, 0.3, Vector3.new(0, 45, 0), v_u_112.values.ray_params)
+            local v122
+            if v121 then
+                v122 = v121.Position - Vector3.new(0, 2, 0)
+            else
+                v122 = v_u_120 - v_u_114.CFrame.LookVector * 2 + Vector3.new(0, 45, 0)
+            end
+            local v_u_123 = nil
+            local v_u_124 = nil
+            local v125 = v122.Y - v_u_114.Position.Y
+            local v126 = math.abs(v125)
+            if v126 > 7 then
+                local v127 = v_u_6.parts_on_ray
+                local v128 = CFrame.new(v122 + v_u_114.CFrame.LookVector * 2) * v_u_114.CFrame.Rotation * CFrame.Angles(-0.7853981633974483, 0, 0)
+                local v129 = -v126
+                v127(v128, Vector3.new(0, v129, 0), { v_u_112.instance, v_u_112.values.viewmodels }, function(p130)
+                    -- upvalues: (copy) v_u_114, (copy) v_u_112, (copy) v_u_120, (copy) v_u_116, (ref) v_u_123, (ref) v_u_124
+                    local v131 = p130.Instance
+                    if v131.Transparency < 1 and (v131.CanCollide and v131.Anchored) then
+                        local v132 = p130.Position.Y - v_u_114.Position.Y
+                        local v133 = math.abs(v132)
+                        if v133 > 5 then
+                            local v134 = p130.Position + Vector3.new(0, 0.5, 0)
+                            if game.Workspace:Spherecast(v134 - v_u_114.CFrame.LookVector * 2, 0.3, v_u_114.CFrame.LookVector * 2, v_u_112.values.ray_params) then
+                                return
+                            end
+                            local v135 = v_u_120 + v_u_116.Normal * 1.5
+                            if not workspace:Spherecast(v135, 0.5, Vector3.new(0, v133, 0), v_u_112.values.ray_params) then
+                                local _, v136, _ = CFrame.new(v135, v135 - v_u_116.Normal):ToOrientation()
+                                local v137 = CFrame.new(v135) * CFrame.Angles(0, v136, 0)
+                                local v138 = CFrame.new(p130.Position) * CFrame.Angles(0, v136, 0)
+                                v_u_123 = v137
+                                v_u_124 = v138
+                                return false
+                            end
+                        end
+                    end
+                end, Vector3.new(0.3, 2, 0.3))
+            end
+            if v_u_123 and v_u_124 then
+                return v_u_123, v_u_124
+            end
+        end
+        if workspace:Blockcast(CFrame.new(v115.Position + v115.UpVector * 2), Vector3.new(0.3, 2, 0.3), v_u_114.CFrame.LookVector * 5, v_u_112.values.ray_params) then
+            return
+        end
+        local v139 = workspace:Spherecast(v115.Position + v_u_114.CFrame.LookVector * 4, 0.5, Vector3.new(0, -45, 0), v_u_112.values.ray_params)
+        if v139 then
+            local v140 = v139.Position.Y - v_u_114.Position.Y
+            if math.abs(v140) > 7 then
+                local v141 = workspace:Blockcast(CFrame.new(v115.Position + v_u_114.CFrame.LookVector * 5 - v_u_114.CFrame.UpVector * 2) * v_u_114.CFrame.Rotation * CFrame.Angles(0.2617993877991494, 0, 0), Vector3.new(0.3, 4, 0.3), -v_u_114.CFrame.LookVector * 5, v_u_112.values.ray_params)
+                if not v141 then
+                    return
+                end
+                local v142 = v141.Position + Vector3.new(0, 1, 0)
+                if game.Workspace:Spherecast(v142 + v_u_114.CFrame.LookVector * 2, 0.3, -v_u_114.CFrame.LookVector * 2, v_u_112.values.ray_params) then
+                    return
+                end
+                local v143 = workspace:Spherecast(v141.Position + v_u_114.CFrame.UpVector * 2, 0.3, Vector3.new(0, -2, 0), v_u_112.values.ray_params)
+                if v141 and v143 then
+                    local v144 = v141.Position + v141.Normal * 1.5
+                    local _, v145, _ = CFrame.new(v144, v144 - v141.Normal):ToOrientation()
+                    return CFrame.new(v144) * CFrame.Angles(0, v145, 0), CFrame.new(v143.Position) * CFrame.Angles(0, v145, 0)
+                end
+            end
+        end
+    end
+end
+function v_u_3.prepare(p146, p147) -- name: prepare
+    local v_u_148 = p146.owner
+    local _ = p146.inputs
+    if p146.action_button.Visible then
+        local v149 = (p146.owner.values.holding == p146.owner.values.hands_item and 0 or 0.3) + 0.2 + 0.15
+        p146.completion_bar(v149)
+    end
+    task.wait(0.15)
+    local v150, v151 = p146:can_rappel(v_u_148)
+    if p147 and (v150 and v151) then
+        v_u_148.values.should_vault = false
+        if v_u_148.states.holding:get() ~= p146.instance then
+            v_u_148.states.holding:set(p146.instance)
+            while v_u_148.values.equip_debounce:get() or v_u_148.values.holding ~= p146 do
+                v_u_148.values.equip_debounce:wait()
+            end
+        end
+        p146:start_rappel_mode(v_u_148, v150, v151)
+        task.delay(0.5, function()
+            -- upvalues: (copy) v_u_148
+            v_u_148.values.requip_items()
+        end)
+    end
+end
+function v_u_3.hook_inputs(p_u_152) -- name: hook_inputs
+    -- upvalues: (copy) v_u_7, (copy) v_u_6, (copy) v_u_9
+    local v_u_153 = v_u_7.create_input_dictionary(p_u_152.instance)
+    p_u_152.inputs = v_u_153
+    p_u_152.rappel_time = 0
+    p_u_152.owner.states.climbing:hook(function(p154)
+        -- upvalues: (copy) p_u_152
+        if p154 == 0 then
+            p_u_152.states.rappeling:set(false)
+        elseif p154 > 1 and not p_u_152.states.rappeling:get() then
+            p_u_152:stop_rappel_mode(p_u_152.owner)
+        end
+    end)
+    p_u_152.owner.states.vault:hook(function(p155)
+        -- upvalues: (copy) p_u_152
+        if p155 > 0 then
+            p_u_152.states.rappeling:set(false)
+        end
+    end)
+    p_u_152.states.rappeling:hook(function(p156)
+        -- upvalues: (copy) p_u_152
+        if not p156 then
+            p_u_152:stop_rappel_mode(p_u_152.owner)
+        end
+    end)
+    (p_u_152.owner.values.inputs or v_u_7.get_input_dictionary(p_u_152.owner.instance)).enabled:hook(function(p157)
+        -- upvalues: (ref) v_u_6, (copy) p_u_152, (copy) v_u_153
+        if p157 and v_u_6.ownership(p_u_152.object.owner:get()) >= 3 then
+            v_u_153:enable()
+        else
+            v_u_153:disable()
+        end
+    end)
+    p_u_152.prepare = v_u_6.ov(p_u_152.prepare)
+    local v158 = v_u_9.setup_action(v_u_153, function()
+        -- upvalues: (copy) p_u_152
+        return p_u_152:can_rappel(p_u_152.owner)
+    end, "Rappel", "vault", true, 2)
+    p_u_152.completion_bar = v158.completion
+    p_u_152.action_button = v158.action
+    p_u_152.prepare:cancelled(function()
+        -- upvalues: (copy) p_u_152
+        p_u_152.completion_bar:cancel()
+    end)
+    v_u_153:get("vault"):press(function(p159)
+        -- upvalues: (copy) p_u_152
+        if p159 then
+            p_u_152.prepare(p_u_152, p159)
+        else
+            p_u_152.prepare:cancel()
+            local v160 = p_u_152.owner
+            if p_u_152.states.hook:get() == CFrame.new() and v160.states.holding:get() == p_u_152.instance then
+                v160.values.requip_items()
+            end
+        end
+    end)
+    p_u_152.object.owner:hook(function(p161)
+        -- upvalues: (ref) v_u_6
+        local _ = v_u_6.ownership(p161) >= 3
+    end)
+    v_u_9.setup_action(v_u_153, function()
+        -- upvalues: (copy) p_u_152
+        return p_u_152.owner.states.climbing:get() > 1
+    end, "Reverse", "reverse")
+    v_u_153:get("reverse"):press(function(p162) -- name: reverse
+        -- upvalues: (copy) p_u_152
+        if p162 and p_u_152.owner.states.climbing:get() > 1 then
+            p_u_152.owner.states.climbing:update(function(p163)
+                return p163 == 2 and 3 or 2
+            end)
+        end
+    end)
+    v_u_9.setup_action(v_u_153, function()
+        -- upvalues: (copy) p_u_152
+        return p_u_152.owner.states.climbing:get() > 1
+    end, "Descend", "run")
+    v_u_153:get("run"):press(function(p164)
+        -- upvalues: (copy) p_u_152
+        p_u_152.descending = p164
+    end)
+end
+function v_u_3.equip_item(p165, p166) -- name: equip_item
+    if p166.states.holding:get() == p165.instance then
+        p166.states.holding:set(p166.values.hands)
+    else
+        p166.states.holding:set(p165.instance)
+    end
+end
+function v_u_3.update_ui(p167) -- name: update_ui
+    for _, v168 in p167.hooked_labels do
+        v168.Visible = false
+    end
+end
+function v_u_3.load() -- name: load
+    -- upvalues: (copy) v_u_4, (copy) v_u_3, (copy) v_u_5
+    v_u_4.class(v_u_3.tag, function()
+        -- upvalues: (ref) v_u_5
+        return {
+            ["rappeling"] = v_u_5.new(false),
+            ["hook"] = v_u_5.new(CFrame.new()),
+            ["amount"] = v_u_5.new(1),
+            ["skin_att"] = v_u_5.new("")
+        }
+    end):hook(function(_) end)
+end
+return v_u_3
