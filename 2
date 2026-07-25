@@ -1,0 +1,93 @@
+-- Script Path: game:GetService("ReplicatedStorage").Modules.Items
+-- Took 0s to decompile.
+-- Executor: Delta (1.0.729.838)
+
+require(game.ReplicatedStorage.Modules.State)
+local v_u_1 = require(game.ReplicatedStorage.Modules.CustomAnim)
+local v_u_6 = {
+    ["items"] = {},
+    ["create_item"] = function(p_u_2) -- name: create_item
+        -- upvalues: (copy) v_u_6, (copy) v_u_1
+        local v3 = v_u_6.get_item_class(p_u_2.Name).new()
+        v3.name = p_u_2.Name
+        v3.instance = p_u_2
+        v3.states = {}
+        v3.hooked_labels = {}
+        v3.cframes = v_u_1.create_cframe_dictionary(p_u_2)
+        v_u_6.items[p_u_2] = v3
+        v3:init()
+        p_u_2.Destroying:Connect(function()
+            -- upvalues: (ref) v_u_6, (copy) p_u_2
+            v_u_6.items[p_u_2] = nil
+        end)
+        return v3
+    end,
+    ["get_item"] = function(p4) -- name: get_item
+        -- upvalues: (copy) v_u_6
+        return v_u_6.items[p4] or v_u_6.create_item(p4)
+    end,
+    ["delete_item"] = function(p5) -- name: delete_item
+        -- upvalues: (copy) v_u_6, (copy) v_u_1
+        if v_u_6.items[p5] then
+            v_u_1.delete_cframe_dictionary(p5)
+            v_u_6.items[p5] = nil
+        end
+    end
+}
+local v_u_7 = {}
+function v_u_6.get_item_class(p8) -- name: get_item_class
+    -- upvalues: (copy) v_u_7
+    if p8 == nil then
+        return nil
+    end
+    if v_u_7[p8] == nil then
+        local v9 = script:FindFirstChild(p8, true)
+        if v9 and v9:IsA("ModuleScript") then
+            v_u_7[p8] = require(v9)
+        end
+    end
+    return v_u_7[p8]
+end
+function v_u_6.get_item_model(p10) -- name: get_item_model
+    -- upvalues: (copy) v_u_7
+    if p10 == nil then
+        return nil
+    end
+    if v_u_7[p10] == nil then
+        v_u_7[p10] = require(script:FindFirstChild(p10, true))
+    end
+    return v_u_7[p10].model
+end
+function v_u_6.get_all_items_of_loadout(p11) -- name: get_all_items_of_loadout
+    local v12 = typeof(p11) == "table" and p11 and p11 or { p11 }
+    local v13 = {}
+    for _, v14 in script:GetDescendants() do
+        if v14:IsA("ModuleScript") and (v14:FindFirstChild("Model") and table.find(v12, require(v14).loadout_type)) then
+            local v15 = require
+            table.insert(v13, v15(v14))
+        end
+    end
+    return v13
+end
+function v_u_6.get_all_items() -- name: get_all_items
+    local v16 = {}
+    for _, v17 in script:GetDescendants() do
+        if v17:IsA("ModuleScript") and v17:FindFirstChild("Model") then
+            local v18 = require
+            table.insert(v16, v18(v17))
+        end
+    end
+    return v16
+end
+function v_u_6.get_all_item_names_of_loadout(p19) -- name: get_all_item_names_of_loadout
+    local v20 = typeof(p19) == "table" and p19 and p19 or { p19 }
+    local v21 = {}
+    for _, v22 in script:GetDescendants() do
+        if not v22:IsDescendantOf(script.Item.Attachment) and (v22:IsA("ModuleScript") and (v22:FindFirstChild("Model") and table.find(v20, require(v22).loadout_type))) then
+            v21[v22.Name] = true
+        end
+    end
+    return v21
+end
+function v_u_6.load() -- name: load end
+return v_u_6
