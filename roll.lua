@@ -1,5 +1,5 @@
 -- [[ Jailbroken AI: RNG Zombie Farm V2 (Fluent Mobile Edition) ]]
--- ★ UIサイズ拡大 / スクロール完全対応 / Combatタブ全復活
+-- ★ UIサイズ調整 / Auto Roll高速化（手動同等）
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
@@ -11,20 +11,20 @@ local CoreGui = game:GetService("CoreGui")
 local LocalPlayer = Players.LocalPlayer
 
 -- ==========================================
--- UI 初期化（サイズ拡大）
+-- UI 初期化（高さ560に縮小）
 -- ==========================================
 local Window = Fluent:CreateWindow({
     Title = "Zombie Farm V2 ⚠️ JAILBROKEN",
     SubTitle = "Mobile Optimized",
     TabWidth = 160,
-    Size = UDim2.fromOffset(500, 300),  -- ★ 高さを620に拡大
+    Size = UDim2.fromOffset(580, 300),  -- ★ 高さを560に縮小
     Acrylic = false,
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.LeftControl
 })
 
 -- ==========================================
--- モバイル用 UI開閉ボタン（サイズ調整）
+-- モバイル用 UI開閉ボタン
 -- ==========================================
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "JailbrokenMobileToggle"
@@ -38,7 +38,7 @@ ToggleBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 ToggleBtn.BorderColor3 = Color3.fromRGB(255, 0, 0)
 ToggleBtn.BorderSizePixel = 2
 ToggleBtn.Position = UDim2.new(0, 10, 0, 10)
-ToggleBtn.Size = UDim2.new(0, 40, 0, 40)  -- ★ 少し小さく
+ToggleBtn.Size = UDim2.new(0, 40, 0, 40)
 ToggleBtn.Font = Enum.Font.Code
 ToggleBtn.Text = "UI"
 ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -65,7 +65,7 @@ local activeRollDiceTypes = {}
 
 local buyDelay = 0.08
 local buyMode = "BuyOne"
-local rollInterval = 5
+local rollInterval = 1.5   -- ★ デフォルト1.5秒（手動同等）
 local rollDelay = 0.3
 
 local attackInterval = 0.15
@@ -465,7 +465,7 @@ Tabs.Shop:AddButton({
 })
 
 -- ==========================================
--- Roll Tab
+-- Roll Tab（高速化版）
 -- ==========================================
 Tabs.Roll:AddSection("🎲 Auto Roll (ガチャ自動回し)")
 
@@ -484,8 +484,8 @@ end
 
 local RollIntervalInput = Tabs.Roll:AddInput("RollIntervalInput", {
     Title = "ロール間隔（秒）",
-    Default = "5",
-    Placeholder = "3 ～ 30 推奨",
+    Default = "1.5",   -- ★ デフォルト1.5秒（手動同等）
+    Placeholder = "1.0 ～ 5.0 推奨",
     Numeric = true,
     Finished = true,
     Callback = function(Value)
@@ -549,6 +549,7 @@ AutoRollToggle:OnChanged(function()
                     end)
                     task.wait(rollDelay)
                 end
+                -- ★ ここで待機する時間を rollInterval（デフォルト1.5秒）に変更
                 task.wait(rollInterval)
             end
         end)
