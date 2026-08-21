@@ -76,8 +76,8 @@ local SETTINGS = {
     FOV_Degrees = 150,
     MaxDistance = 1000,
     -- ★ 射撃用クールダウン
-    ShootInterval = 0.08,
-    ShootRandomDelay = 0.02,
+    ShootInterval = 1.85,
+    ShootRandomDelay = 1.85,
     -- ★ ナイフ用クールダウン（別途設定可能）
     KnifeInterval = 0,
     KnifeRandomDelay = 0,
