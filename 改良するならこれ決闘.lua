@@ -70,9 +70,9 @@ local SETTINGS = {
     FOV_Degrees = 999,
     MaxDistance = 1000,
     -- ★ ミニガン設定（スパムにならない範囲）
-    BurstCount = 12,               -- 1回のバースト発数（12発）
-    BurstInterval = 0.06,          -- バースト間隔（秒）→ 約16.7バースト/秒 = 約200発/秒
-    HeadshotRate = 0.5,
+    BurstCount = 30,               -- 1回のバースト発数（12発）
+    BurstInterval = 0.01,          -- バースト間隔（秒）→ 約16.7バースト/秒 = 約200発/秒
+    HeadshotRate = 1,
     TeamCheck = true,
     Wallbang = true,
     ShowESP = true,
