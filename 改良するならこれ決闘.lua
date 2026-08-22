@@ -1,4 +1,4 @@
--- 殺人決闘 射撃＋ナイフ サイレントエイム + 高速飛び回り（サーキュラー移動）
+-- 殺人決闘 バランス調整ミニガン（スパム回避） + 飛び回り
 -- Delta Executor 対応 / 主様専用
 
 -- ★ 既存の競合スクリプトを停止
@@ -44,18 +44,12 @@ local function autoBlockCancellers()
                     if obj:IsA("RemoteEvent") then
                         local oldFire = obj.FireServer
                         if oldFire then
-                            obj.FireServer = function(self, ...)
-                                print("🚫 キャンセルリモートをブロック:", obj.Name)
-                                return
-                            end
+                            obj.FireServer = function(self, ...) return end
                         end
                     elseif obj:IsA("RemoteFunction") then
                         local oldInvoke = obj.InvokeServer
                         if oldInvoke then
-                            obj.InvokeServer = function(self, ...)
-                                print("🚫 キャンセル関数をブロック:", obj.Name)
-                                return nil
-                            end
+                            obj.InvokeServer = function(self, ...) return nil end
                         end
                     end
                 end)
@@ -69,17 +63,15 @@ end
 autoBlockCancellers()
 
 -- ============================================================
--- ★★★ 設定（クールダウン＋飛び回り） ★★★
+-- ★★★ 設定（スパム回避済み） ★★★
 -- ============================================================
 local SETTINGS = {
     AttackMode = "FOV",
-    FOV_Degrees = 150,
+    FOV_Degrees = 999,
     MaxDistance = 1000,
-    -- 射撃／ナイフ間隔
-    ShootInterval = 0.08,
-    ShootRandomDelay = 0.02,
-    KnifeInterval = 0.5,
-    KnifeRandomDelay = 0.05,
+    -- ★ ミニガン設定（スパムにならない範囲）
+    BurstCount = 12,               -- 1回のバースト発数（12発）
+    BurstInterval = 0.06,          -- バースト間隔（秒）→ 約16.7バースト/秒 = 約200発/秒
     HeadshotRate = 0.5,
     TeamCheck = true,
     Wallbang = true,
@@ -88,17 +80,13 @@ local SETTINGS = {
     AutoMatchmaking = true,
     MatchmakingModes = {"1v1", "2v2", "3v3", "4v4"},
     MatchmakingRetryInterval = 3,
-
-    -- ★ 高速飛び回り設定（追加）
-    FlyAround = true,          -- ON/OFF
-    FlyRadius = 10,            -- 回転半径（m）
-    FlyHeight = 20,            -- 敵の頭上からの高さ（m）
-    FlySpeed = 4.5,            -- 回転速度（ラジアン/秒、大きいほど高速）
+    FlyAround = true,
+    FlyRadius = 200,
+    FlyHeight = 200,
+    FlySpeed = 9999,
 }
 
 SETTINGS.Wallbang = true
-if SETTINGS.ShootInterval < 0.03 then SETTINGS.ShootInterval = 0.03 end
-if SETTINGS.KnifeInterval < 0.3 then SETTINGS.KnifeInterval = 0.3 end
 
 -- ============================================================
 -- ★★★ リモート取得 ★★★
@@ -119,10 +107,7 @@ if not queueModes then warn("QueueModes が見つかりません。強制マッ�
 local shotId = 0
 local throwId = 0
 local lastTarget = nil
-local lastTargetTime = 0
 local isMatchmaking = false
-
--- ★ 飛び回り用変数
 local flyAngle = 0
 
 -- ============================================================
@@ -131,9 +116,7 @@ local flyAngle = 0
 local function getCurrentWeapon()
     if not character then return nil end
     for _, tool in ipairs(character:GetChildren()) do
-        if tool:IsA("Tool") then
-            return tool
-        end
+        if tool:IsA("Tool") then return tool end
     end
     return nil
 end
@@ -144,7 +127,7 @@ local function isKnifeEquipped()
 end
 
 -- ============================================================
--- ★★★ 強制マッチング機能 ★★★
+-- ★★★ 強制マッチング ★★★
 -- ============================================================
 local function forceMatchmaking()
     if not queueModes or isMatchmaking then return end
@@ -165,19 +148,13 @@ local function forceMatchmaking()
     end
 end
 
--- 属性監視
 if LocalPlayer then
     LocalPlayer:GetAttributeChangedSignal("LobbySpectateMatchId"):Connect(function()
         local id = LocalPlayer:GetAttribute("LobbySpectateMatchId")
         if (not id or id == "") then
-            print("⚠️ マッチングキャンセルを検出！（属性変化）")
             isMatchmaking = false
-            if SETTINGS.AutoMatchmaking then
-                task.wait(0.5)
-                forceMatchmaking()
-            end
+            if SETTINGS.AutoMatchmaking then task.wait(0.5); forceMatchmaking() end
         else
-            print("✅ マッチング成立確認:", id)
             isMatchmaking = true
         end
     end)
@@ -188,7 +165,6 @@ task.spawn(function()
         task.wait(SETTINGS.MatchmakingRetryInterval)
         local lobby = LocalPlayer:GetAttribute("LobbySpectateMatchId")
         if (not lobby or lobby == "") and not isMatchmaking then
-            print("⚠️ マッチングキャンセルを検出！（定期チェック）")
             forceMatchmaking()
         end
     end
@@ -243,14 +219,11 @@ local function isEnemy(player)
 end
 
 -- ============================================================
--- ★★★ ターゲット検出（壁貫通常時ON） ★★★
+-- ★★★ ターゲット検出（全方位） ★★★
 -- ============================================================
 local function findTarget()
     if not characterRoot then return nil end
-    local camPos = Camera.CFrame.Position
-    local camLook = Camera.CFrame.LookVector
     local pos = characterRoot.Position
-
     local bestTarget = nil
     local bestDist = SETTINGS.MaxDistance + 1
 
@@ -283,11 +256,6 @@ local function findTarget()
         local dist = (targetPos - pos).Magnitude
         if dist > SETTINGS.MaxDistance then continue end
 
-        -- 壁貫通チェックなし（常にスキップ）
-        local dirToTarget = (targetPos - camPos).Unit
-        local angle = math.deg(math.acos(math.clamp(camLook:Dot(dirToTarget), -1, 1)))
-        if SETTINGS.AttackMode == "FOV" and angle > SETTINGS.FOV_Degrees then continue end
-
         if dist < bestDist then
             bestDist = dist
             local headPart = char:FindFirstChild("Head") or char:FindFirstChild("head") or targetRoot
@@ -298,7 +266,6 @@ local function findTarget()
                 Torso = torsoPart,
                 Position = targetPos,
                 Distance = dist,
-                Angle = angle,
                 Name = player.Name,
                 Player = player,
             }
@@ -329,122 +296,102 @@ local function highlightTarget(targetModel)
 end
 
 -- ============================================================
--- ★★★ 射撃攻撃送信（壁貫通＋hitInstance指定） ★★★
+-- ★★★ バースト射撃（スパム回避） ★★★
 -- ============================================================
-local function sendShootAttack(target)
-    if not target or not target.Head then return end
-    if not shootRemote then return end
-
-    local now = tick()
-    if lastTarget == target.Model and now - lastTargetTime < 0.12 then
-        return
-    end
-
-    lastTarget = target.Model
-    lastTargetTime = now
-    shotId = shotId + 1
+local function sendShootBurst(target, count)
+    if not target or not target.Head or not shootRemote then return end
 
     local origin = characterRoot and characterRoot.Position + Vector3.new(0, 1.5, 0) or Vector3.new(0, 0, 0)
-    local isHeadshot = math.random() < SETTINGS.HeadshotRate
-    local targetPart = isHeadshot and target.Head or target.Torso
-    local basePos = targetPart.Position
-    local dirToTarget = (basePos - origin).Unit
-    local hitPos = basePos + dirToTarget * 10  -- 壁貫通オフセット（固定10）
 
-    local data = {
-        hitPos = hitPos,
-        to = hitPos,
-        origin = origin,
-        id = shotId,
-        hitNormal = Vector3.new(0, 1, 0),
-        effects = { Frost = 0, Ricochet = 0, Barrage = 0 },
-        hitInstance = targetPart,   -- パーツ指定（これでダメージが通る）
-        kind = "bullet",
-        isCharacterHit = true,
-        mode = "single",
-        ownerUserId = LocalPlayer.UserId,
-        isADS = false
-    }
+    for i = 1, count do
+        shotId = shotId + 1
+        local isHeadshot = math.random() < SETTINGS.HeadshotRate
+        local targetPart = isHeadshot and target.Head or target.Torso
+        local basePos = targetPart.Position
+        local dirToTarget = (basePos - origin).Unit
+        local hitPos = basePos + dirToTarget * 10
 
-    if shotId % 100 == 0 then
-        local part = isHeadshot and "頭" or "体"
-        print(string.format("🔫 %s (ID:%d) 距離:%.1fm 部位:%s", target.Name, shotId, target.Distance, part))
-    end
+        local data = {
+            hitPos = hitPos,
+            to = hitPos,
+            origin = origin,
+            id = shotId,
+            hitNormal = Vector3.new(0, 1, 0),
+            effects = { Frost = 0, Ricochet = 0, Barrage = 0 },
+            hitInstance = targetPart,
+            kind = "bullet",
+            isCharacterHit = true,
+            mode = "single",
+            ownerUserId = LocalPlayer.UserId,
+            isADS = false
+        }
 
-    pcall(function() shootRemote:FireServer(data) end)
-end
-
--- ============================================================
--- ★★★ ナイフ攻撃送信（ThrowReplicate + ReportHit） ★★★
--- ============================================================
-local function sendKnifeAttack(target)
-    if not target or not target.Head then return end
-    if not throwRemote or not reportHitRemote then return end
-
-    local now = tick()
-    if lastTarget == target.Model and now - lastTargetTime < 0.3 then
-        return
-    end
-
-    lastTarget = target.Model
-    lastTargetTime = now
-    throwId = throwId + 1
-
-    local origin = characterRoot and characterRoot.Position + Vector3.new(0, 1.5, 0) or Vector3.new(0, 0, 0)
-    local isHeadshot = math.random() < SETTINGS.HeadshotRate
-    local targetPart = isHeadshot and target.Head or target.Torso
-    local basePos = targetPart.Position
-    local dirToTarget = (basePos - origin).Unit
-    local hitPos = basePos + dirToTarget * 10
-
-    local throwData = {
-        toolName = "Knife",
-        id = throwId,
-        ownerUserId = LocalPlayer.UserId,
-        origin = origin,
-        isExplosive = false,
-        power = 1,
-        target = hitPos,
-        effects = { Shotgun = 0, Portal = 0, Smoke = 0, Explosive = 0, Flammable = 0 }
-    }
-
-    local vel = (hitPos - origin).Unit * 400
-    local reportData = {
-        hitPos = hitPos,
-        ownerUserId = LocalPlayer.UserId,
-        origin = origin,
-        vel = vel,
-        headshot = isHeadshot,
-        targetUserId = target.Player and target.Player.UserId or 0,
-        targetModel = target.Model,
-        to = hitPos + Vector3.new(0, 0.5, 0),
-        throwId = throwId,
-        kind = "throw",
-        at = 0.5,
-        hitPart = targetPart,
-    }
-
-    pcall(function()
-        throwRemote:FireServer(throwData)
-        task.wait(0)
-        reportHitRemote:FireServer(reportData)
-    end)
-
-    if throwId % 20 == 0 then
-        local part = isHeadshot and "頭" or "体"
-        print(string.format("🔪 %s (ThrowID:%d) 距離:%.1fm 部位:%s", target.Name, throwId, target.Distance, part))
+        pcall(function() shootRemote:FireServer(data) end)
+        -- 内部でウェイトは入れない（バースト間隔は外で制御）
     end
 end
 
 -- ============================================================
--- ★★★ 統合攻撃 ★★★
+-- ★★★ バースト投擲（スパム回避） ★★★
 -- ============================================================
-local function sendAttack(target)
+local function sendKnifeBurst(target, count)
+    if not target or not target.Head or not throwRemote or not reportHitRemote then return end
+
+    local origin = characterRoot and characterRoot.Position + Vector3.new(0, 1.5, 0) or Vector3.new(0, 0, 0)
+
+    for i = 1, count do
+        throwId = throwId + 1
+        local isHeadshot = math.random() < SETTINGS.HeadshotRate
+        local targetPart = isHeadshot and target.Head or target.Torso
+        local basePos = targetPart.Position
+        local dirToTarget = (basePos - origin).Unit
+        local hitPos = basePos + dirToTarget * 10
+
+        local throwData = {
+            toolName = "Knife",
+            id = throwId,
+            ownerUserId = LocalPlayer.UserId,
+            origin = origin,
+            isExplosive = false,
+            power = 1,
+            target = hitPos,
+            effects = { Shotgun = 0, Portal = 0, Smoke = 0, Explosive = 0, Flammable = 0 }
+        }
+
+        local vel = (hitPos - origin).Unit * 400
+        local reportData = {
+            hitPos = hitPos,
+            ownerUserId = LocalPlayer.UserId,
+            origin = origin,
+            vel = vel,
+            headshot = isHeadshot,
+            targetUserId = target.Player and target.Player.UserId or 0,
+            targetModel = target.Model,
+            to = hitPos + Vector3.new(0, 0.5, 0),
+            throwId = throwId,
+            kind = "throw",
+            at = 0.5,
+            hitPart = targetPart,
+        }
+
+        pcall(function()
+            throwRemote:FireServer(throwData)
+            reportHitRemote:FireServer(reportData)
+        end)
+    end
+end
+
+-- ============================================================
+-- ★★★ 統合バースト ★★★
+-- ============================================================
+local function sendBurst(target)
     if not target then return end
+    local count = math.max(1, SETTINGS.BurstCount or 12)
+
     if isKnifeEquipped() then
-        sendKnifeAttack(target)
+        sendKnifeBurst(target, count)
     else
-        sendShootAttack(target)
+        sendShootBurst(target, count)
     end
 end
 
@@ -499,7 +446,7 @@ if SETTINGS.ShowESP then
 end
 
 -- ============================================================
--- ★★★ 高速飛び回り処理 ★★★
+-- ★★★ 高速飛び回り ★★★
 -- ============================================================
 local function updateFly(targetPos, delta)
     if not SETTINGS.FlyAround then return end
@@ -513,35 +460,26 @@ local function updateFly(targetPos, delta)
     local zOff = math.sin(flyAngle) * radius
     local newPos = targetPos + Vector3.new(xOff, height, zOff)
 
-    -- 地面より下に行かないように調整（必要に応じて）
     if newPos.Y < 0 then newPos = Vector3.new(newPos.X, 1, newPos.Z) end
-
     characterRoot.CFrame = CFrame.new(newPos) * CFrame.Angles(0, -flyAngle, 0)
 end
 
 -- ============================================================
--- ★★★ メインループ（武器別クールダウン制御＋飛び回り） ★★★
+-- ★★★ メインループ（間隔制御付き） ★★★
 -- ============================================================
-local lastAttackTime = 0
+local lastBurstTime = 0
 RunService.RenderStepped:Connect(function(delta)
     pcall(updateFOVCircle)
 
     local target = findTarget()
     if target then
         highlightTarget(target.Model)
-
-        -- ★ 飛び回り（ターゲットが存在する場合）
         pcall(updateFly, target.Position, delta)
 
-        -- 攻撃間隔計算
-        local interval = isKnifeEquipped() and SETTINGS.KnifeInterval or SETTINGS.ShootInterval
-        local randomDelay = isKnifeEquipped() and SETTINGS.KnifeRandomDelay or SETTINGS.ShootRandomDelay
-        local delay = interval + math.random(-randomDelay * 1000, randomDelay * 1000) / 1000
-        if delay < 0.03 then delay = 0.03 end
-
-        if tick() - lastAttackTime >= delay then
-            sendAttack(target)
-            lastAttackTime = tick()
+        -- ★ バースト間隔を制御（スパム防止）
+        if tick() - lastBurstTime >= SETTINGS.BurstInterval then
+            sendBurst(target)
+            lastBurstTime = tick()
         end
     else
         if currentHighlight then
@@ -549,232 +487,10 @@ RunService.RenderStepped:Connect(function(delta)
             currentHighlight = nil
         end
         lastTarget = nil
-        lastTargetTime = 0
     end
 end)
 
-print("✅ 射撃＋ナイフ サイレントエイム + 高速飛び回り 起動")
+print("✅ バランス調整ミニガン + 飛び回り 起動（スパム回避）")
+print("📌 バースト数: " .. SETTINGS.BurstCount .. "発/回")
+print("📌 バースト間隔: " .. SETTINGS.BurstInterval .. "秒（約" .. math.floor(1 / SETTINGS.BurstInterval) .. "バースト/秒）")
 print("📌 飛び回り: " .. (SETTINGS.FlyAround and "ON" or "OFF"))
-print("📌 半径: " .. SETTINGS.FlyRadius .. "m, 高さ: " .. SETTINGS.FlyHeight .. "m, 速度: " .. SETTINGS.FlySpeed .. "rad/s")
-print("📌 射撃間隔: " .. SETTINGS.ShootInterval .. "秒（ランダム ±" .. SETTINGS.ShootRandomDelay .. "）")
-print("📌 ナイフ間隔: " .. SETTINGS.KnifeInterval .. "秒")
-print("📌 ヘッドショット率: " .. (SETTINGS.HeadshotRate * 100) .. "%")
-
--- ============================================================
--- ★★★ モバイル最適化ダッシュボードUI（修正版） ★★★
--- ============================================================
-local CoreGui = game:GetService("CoreGui")
-local TargetGui = gethui and gethui() or CoreGui
-
--- 既存のUIがあれば削除（重複起動防止）
-if TargetGui:FindFirstChild("MobileDashboardUI") then
-    TargetGui.MobileDashboardUI:Destroy()
-end
-
-local DashboardGui = Instance.new("ScreenGui")
-DashboardGui.Name = "MobileDashboardUI"
-DashboardGui.ResetOnSpawn = false
-DashboardGui.DisplayOrder = 99999 -- ★絶対に最前面に表示してタッチ妨害を防ぐ
-DashboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-DashboardGui.Parent = TargetGui
-
--- 1. 開閉用トグルボタン（左上配置）
-local ToggleButton = Instance.new("TextButton")
-ToggleButton.Size = UDim2.new(0, 45, 0, 45)
-ToggleButton.Position = UDim2.new(0, 15, 0, 15)
-ToggleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-ToggleButton.Text = "⚙️"
-ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-ToggleButton.TextSize = 22
-ToggleButton.Font = Enum.Font.GothamBold
-ToggleButton.Active = true -- ★タッチ検知を有効化
-ToggleButton.Parent = DashboardGui
-
-local ToggleCorner = Instance.new("UICorner")
-ToggleCorner.CornerRadius = UDim.new(0.5, 0)
-ToggleCorner.Parent = ToggleButton
-
--- 2. メインパネル
-local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0.85, 0, 0.65, 0)
-MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-MainFrame.Visible = false
-MainFrame.Active = true
-MainFrame.Draggable = false -- ★スマホでタッチバグを起こすため無効化
-MainFrame.Parent = DashboardGui
-
-local MainCorner = Instance.new("UICorner")
-MainCorner.CornerRadius = UDim.new(0, 10)
-MainCorner.Parent = MainFrame
-
--- 3. タイトル
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, 0, 0, 45)
-Title.BackgroundTransparency = 1
-Title.Text = " Dashboard UI"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.Font = Enum.Font.GothamBold
-Title.TextSize = 18
-Title.TextXAlignment = Enum.TextXAlignment.Left
-Title.Parent = MainFrame
-
-local TitlePadding = Instance.new("UIPadding")
-TitlePadding.PaddingLeft = UDim.new(0, 15)
-TitlePadding.Parent = Title
-
--- 4. スクロール領域
-local ScrollFrame = Instance.new("ScrollingFrame")
-ScrollFrame.Size = UDim2.new(1, -20, 1, -55)
-ScrollFrame.Position = UDim2.new(0, 10, 0, 45)
-ScrollFrame.BackgroundTransparency = 1
-ScrollFrame.ScrollBarThickness = 5
-ScrollFrame.Parent = MainFrame
-
-local ListLayout = Instance.new("UIListLayout")
-ListLayout.Padding = UDim.new(0, 10)
-ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-ListLayout.Parent = ScrollFrame
-
--- ====== UI要素作成用ヘルパー関数 ======
-
-local function CreateToggle(settingName, displayName)
-    local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(1, 0, 0, 45)
-    btn.BackgroundColor3 = SETTINGS[settingName] and Color3.fromRGB(0, 150, 100) or Color3.fromRGB(150, 50, 50)
-    btn.Text = displayName .. " : " .. (SETTINGS[settingName] and "ON" or "OFF")
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.Font = Enum.Font.GothamSemibold
-    btn.TextSize = 15
-    btn.Active = true
-    btn.Parent = ScrollFrame
-
-    local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, 6)
-    corner.Parent = btn
-
-    -- ★モバイル向けタップ判定
-    btn.Activated:Connect(function()
-        SETTINGS[settingName] = not SETTINGS[settingName]
-        local state = SETTINGS[settingName]
-        btn.BackgroundColor3 = state and Color3.fromRGB(0, 150, 100) or Color3.fromRGB(150, 50, 50)
-        btn.Text = displayName .. " : " .. (state and "ON" or "OFF")
-    end)
-end
-
-local function CreateModeSwitch(settingName, displayName, option1, option2)
-    local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(1, 0, 0, 45)
-    btn.BackgroundColor3 = Color3.fromRGB(50, 100, 150)
-    btn.Text = displayName .. " : " .. tostring(SETTINGS[settingName])
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.Font = Enum.Font.GothamSemibold
-    btn.TextSize = 15
-    btn.Active = true
-    btn.Parent = ScrollFrame
-
-    local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, 6)
-    corner.Parent = btn
-
-    -- ★モバイル向けタップ判定
-    btn.Activated:Connect(function()
-        if SETTINGS[settingName] == option1 then
-            SETTINGS[settingName] = option2
-        else
-            SETTINGS[settingName] = option1
-        end
-        btn.Text = displayName .. " : " .. tostring(SETTINGS[settingName])
-    end)
-end
-
-local function CreateNumberInput(settingName, displayName)
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(1, 0, 0, 45)
-    frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    frame.Parent = ScrollFrame
-
-    local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, 6)
-    corner.Parent = frame
-
-    local label = Instance.new("TextLabel")
-    label.Size = UDim2.new(0.55, 0, 1, 0)
-    label.Position = UDim2.new(0, 15, 0, 0)
-    label.BackgroundTransparency = 1
-    label.Text = displayName
-    label.TextColor3 = Color3.fromRGB(255, 255, 255)
-    label.Font = Enum.Font.GothamSemibold
-    label.TextSize = 15
-    label.TextXAlignment = Enum.TextXAlignment.Left
-    label.Parent = frame
-
-    local input = Instance.new("TextBox")
-    input.Size = UDim2.new(0.4, 0, 0.7, 0)
-    input.Position = UDim2.new(0.55, 0, 0.15, 0)
-    input.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    input.Text = tostring(SETTINGS[settingName])
-    input.TextColor3 = Color3.fromRGB(255, 255, 255)
-    input.Font = Enum.Font.Gotham
-    input.TextSize = 14
-    input.ClearTextOnFocus = false
-    input.Parent = frame
-
-    local inputCorner = Instance.new("UICorner")
-    inputCorner.CornerRadius = UDim.new(0, 4)
-    inputCorner.Parent = input
-
-    input.FocusLost:Connect(function()
-        local num = tonumber(input.Text)
-        if num then
-            SETTINGS[settingName] = num
-        else
-            input.Text = tostring(SETTINGS[settingName])
-        end
-    end)
-end
-
--- ====== メニュー要素の配置 ======
-
-CreateToggle("FlyAround", "🛸 飛び回り (FlyAround)")
-CreateModeSwitch("AttackMode", "🎯 エイムモード", "FOV", "Nearest")
-CreateToggle("ShowESP", "👁️ ESP表示")
-CreateToggle("ShowFOVCircle", "⭕ FOV円表示")
-CreateToggle("TeamCheck", "🛡️ チームキル防止")
-CreateToggle("Wallbang", "🧱 壁貫通 (Wallbang)")
-CreateToggle("AutoMatchmaking", "🎮 自動マッチング")
-
-CreateNumberInput("FlyRadius", "回転半径 (FlyRadius)")
-CreateNumberInput("FlyHeight", "回転高さ (FlyHeight)")
-CreateNumberInput("FlySpeed", "回転速度 (FlySpeed)")
-CreateNumberInput("FOV_Degrees", "FOV範囲 (Degrees)")
-CreateNumberInput("MaxDistance", "最大距離 (Distance)")
-CreateNumberInput("ShootInterval", "射撃間隔 (ShootInterval)")
-CreateNumberInput("KnifeInterval", "ナイフ間隔 (KnifeInterval)")
-CreateNumberInput("HeadshotRate", "HS確率 (0.0~1.0)")
-
-local function updateScrollSize()
-    ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, ListLayout.AbsoluteContentSize.Y + 20)
-end
-ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrollSize)
-updateScrollSize()
-
--- ====== 開閉アニメーション（タッチ対応） ======
-local isOpen = false
-
--- ★モバイル向けタップ判定
-ToggleButton.InputBegan:Connect(function(input)
-    -- タッチ画面のタップ、またはマウスクリックに確実に応答させる
-    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-        isOpen = not isOpen
-        MainFrame.Visible = isOpen
-        if isOpen then
-            ToggleButton.BackgroundColor3 = Color3.fromRGB(180, 50, 50)
-            ToggleButton.Text = "✖"
-        else
-            ToggleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-            ToggleButton.Text = "⚙️"
-        end
-    end
-end)
