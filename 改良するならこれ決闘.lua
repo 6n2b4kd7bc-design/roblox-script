@@ -71,7 +71,7 @@ local SETTINGS = {
     MaxDistance = 1000,
     -- ★ ミニガン設定（スパムにならない範囲）
     BurstCount = 15,               -- 1回のバースト発数（12発）
-    BurstInterval = 0.03,          -- バースト間隔（秒）→ 約16.7バースト/秒 = 約200発/秒
+    BurstInterval = 0,          -- バースト間隔（秒）→ 約16.7バースト/秒 = 約200発/秒
     HeadshotRate = 1,
     TeamCheck = true,
     Wallbang = true,
