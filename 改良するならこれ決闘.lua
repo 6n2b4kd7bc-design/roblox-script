@@ -70,7 +70,7 @@ local SETTINGS = {
     FOV_Degrees = 999,
     MaxDistance = 1000,
     -- ★ ミニガン設定（スパムにならない範囲）
-    BurstCount = 20,               -- 1回のバースト発数（12発）
+    BurstCount = 15,               -- 1回のバースト発数（12発）
     BurstInterval = 0.03,          -- バースト間隔（秒）→ 約16.7バースト/秒 = 約200発/秒
     HeadshotRate = 1,
     TeamCheck = true,
@@ -81,9 +81,9 @@ local SETTINGS = {
     MatchmakingModes = {"1v1", "2v2", "3v3", "4v4"},
     MatchmakingRetryInterval = 3,
     FlyAround = true,
-    FlyRadius = 200,
-    FlyHeight = 200,
-    FlySpeed = 9999,
+    FlyRadius = 150,
+    FlyHeight = 150,
+    FlySpeed = 300,
 }
 
 SETTINGS.Wallbang = true
