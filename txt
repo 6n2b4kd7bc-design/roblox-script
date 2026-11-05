@@ -1,0 +1,4905 @@
+-- Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+-- Took 0s to decompile.
+-- Executor: Delta (1.0.743.1136)
+
+-- decompilation panicked
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.Backpack.StunStick.Model.StickClient
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [boolean] = false
+        2 [Instance] = StunStick
+        3 [Instance] = ReplicatedStorage
+        4 [function] = DoSwing
+        5 [Instance] = C_milko
+
+Function Constants: Unknown Name
+        1 [string] = Enabled
+        2 [string] = Malfunc
+        3 [string] = GetAttribute
+        4 [string] = GSTMNA
+        5 [string] = Invoke
+        6 [string] = StationPower
+        7 [string] = Value
+        8 [string] = Event
+        9 [string] = S
+        10 [string] = FireServer
+        11 [string] = TKSMNA
+        12 [string] = Fire
+        13 [string] = spawn
+        15 [string] = script
+        17 [string] = StickNoPower
+        18 [string] = Clone
+        19 [string] = PlayerGui
+        20 [string] = Parent
+        21 [string] = game
+        22 [Instance] = Ugc
+        23 [string] = Debris
+        24 [string] = AddItem
+        25 [string] = task
+        26 [string] = wait
+        28 [number] = 1.01
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = DamageModeGUI
+        2 [boolean] = false
+        3 [Instance] = IdleAnim
+        5 [Instance] = HitPart
+
+Function Constants: Unknown Name
+        1 [string] = script
+        3 [string] = Parent
+        4 [string] = Stop
+        5 [string] = Disconnect
+        6 [string] = CanTouch
+        7 [string] = CanQuery
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+
+Function Constants: Unknown Name
+        1 [string] = _G
+        3 [string] = HapticEffect
+        4 [string] = CollisionHE
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = StunStick
+
+Function Constants: Unknown Name
+        1 [string] = Malfunc
+        2 [string] = GetAttribute
+        3 [string] = _G
+        5 [string] = HapticEffect
+        6 [string] = ExplosionHE
+
+====================================================================================================
+
+Function Dump: DoSwing
+
+Function Upvalues: DoSwing
+        1 [Instance] = SwingAnim
+        2 [Instance] = HitPart
+        4 [Instance] = StunStick
+
+Function Constants: DoSwing
+        1 [string] = Play
+        2 [number] = 100
+        3 [string] = math
+        4 [string] = random
+        6 [string] = AdjustSpeed
+        7 [string] = _G
+        9 [string] = HapticEffect
+        10 [string] = ClickHE
+        11 [string] = task
+        12 [string] = wait
+        14 [number] = 0.2
+        15 [string] = CanTouch
+        16 [string] = CanQuery
+        17 [string] = Touched
+        18 [string] = Connect
+        19 [string] = Disconnect
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        2 [Instance] = HitPart
+        3 [Instance] = DamageModeGUI
+        4 [Instance] = C_milko
+        5 [Instance] = OpenGUI
+        6 [boolean] = false
+        7 [Instance] = EquipAnim
+        8 [Instance] = IdleAnim
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = CanTouch
+        3 [string] = CanQuery
+        4 [string] = PlayerGui
+        5 [string] = Parent
+        6 [string] = LocalScript
+        7 [string] = WaitForChild
+        8 [string] = Disabled
+        9 [string] = Play
+        10 [string] = task
+        11 [string] = wait
+        13 [number] = 0.5
+
+====================================================================================================
+]]
