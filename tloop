@@ -1,0 +1,2756 @@
+-- Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+-- Took 0s to decompile.
+-- Executor: Delta (1.0.743.1136)
+
+-- decompilation panicked
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
+
+-- // Function Dumper made by King.Kevin
+-- // Script Path: game:GetService("Players").C_milko.PlayerScripts.DE
+
+--[[
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [RBXScriptConnection] = Connection
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = Disconnect
+        2 [string] = Size
+        3 [string] = Color3
+        4 [string] = new
+        6 [string] = TintColor
+        7 [string] = Brightness
+        8 [string] = Contrast
+        9 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: Unknown Name
+
+Function Upvalues: Unknown Name
+        1 [Instance] = C_milko
+        2 [Instance] = C_milko
+        3 [Instance] = Tween
+        4 [Instance] = Tween
+        5 [Instance] = Tween
+        6 [Instance] = Tween
+        7 [Instance] = Blur
+        8 [Instance] = ColorCorrection
+
+Function Constants: Unknown Name
+        1 [string] = wait
+        3 [string] = Character
+        4 [string] = Play
+        5 [string] = Completed
+        6 [string] = Wait
+        7 [string] = CharacterAdded
+        8 [string] = Smooth Reset
+        9 [string] = config
+        10 [string] = Value
+        11 [string] = Size
+        12 [string] = Color3
+        13 [string] = new
+        15 [string] = TintColor
+        16 [number] = 0.1
+        17 [string] = Brightness
+        18 [string] = Contrast
+        19 [string] = Saturation
+
+====================================================================================================
+
+Function Dump: __index
+
+Function Upvalues: __index
+        1 [table]:
+        1 [table] table: 0xe65ad29dae754146
+                1 [boolean] = true
+                2 [number] = 3
+                3 [boolean] = true
+                4 [number] = 0
+                5 [Color3] = 1, 1, 1
+                6 [number] = 56
+                7 [boolean] = true
+                8 [number] = 0
+                9 [boolean] = true
+                10 [number] = -1
+                11 [number] = 2.5
+                12 [boolean] = false
+
+Function Constants: __index
+        1 [string] = Value
+
+====================================================================================================
+
+Function Dump: setupBlur
+
+Function Upvalues: setupBlur
+        1 [Instance] = TweenService
+        2 [Instance] = Blur
+        3 [Instance] = ColorCorrection
+        4 [Instance] = ReplicatedStorage
+        5 [Instance] = C_milko
+
+Function Constants: setupBlur
+        1 [string] = TweenInfo
+        2 [string] = new
+        4 [string] = Transition Duration
+        5 [string] = config
+        6 [string] = Value
+        7 [string] = Enum
+        8 [string] = EasingStyle
+        9 [string] = Quart
+        10 [EnumItem] = Enum.EasingStyle.Quart
+        11 [string] = EasingDirection
+        12 [string] = In
+        13 [EnumItem] = Enum.EasingDirection.In
+        14 [string] = Blur
+        15 [string] = Size
+        17 [string] = Blur Size
+        18 [string] = Create
+        19 [string] = Brightness
+        20 [string] = Contrast
+        21 [string] = Saturation
+        22 [string] = TintColor
+        24 [string] = Color
+        25 [string] = Smooth Reset
+        26 [string] = Smooth Reset Duration
+        27 [string] = Quint
+        28 [EnumItem] = Enum.EasingStyle.Quint
+        29 [string] = Out
+        30 [EnumItem] = Enum.EasingDirection.Out
+        31 [number] = 0
+        34 [string] = Color3
+        36 [string] = Humanoid
+        37 [string] = FindFirstChildOfClass
+        38 [string] = ChildAdded
+        39 [string] = Wait
+        40 [string] = ClassName
+        41 [string] = DiedEvent
+        42 [string] = Event
+        43 [string] = Connect
+        44 [string] = Died
+
+====================================================================================================
+]]
