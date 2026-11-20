@@ -1,0 +1,402 @@
+--!nocheck
+-- language: Luau (Roblox)
+-- file: KAT_AntiCheatBypass_Fixed.luau
+-- target: Roblox Client
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local Camera = Workspace.CurrentCamera
+
+-- ==========================================
+-- テーマ定義 (Obsidian Style)
+-- ==========================================
+local Theme = {
+	Bg = Color3.fromRGB(30, 30, 30),
+	Panel = Color3.fromRGB(38, 38, 38),
+	CardBg = Color3.fromRGB(45, 45, 45),
+	Accent = Color3.fromRGB(170, 120, 255),
+	Text = Color3.fromRGB(220, 220, 220),
+	SubText = Color3.fromRGB(150, 150, 150),
+	Stroke = Color3.fromRGB(60, 60, 60),
+	Green = Color3.fromRGB(80, 250, 120),
+	Red = Color3.fromRGB(255, 80, 80),
+	Blue = Color3.fromRGB(80, 150, 255),
+}
+
+-- ==========================================
+-- ヘルパー
+-- ==========================================
+local function Create(className, props, children)
+	local inst = Instance.new(className)
+	for k, v in pairs(props) do inst[k] = v end
+	if children then
+		for _, child in ipairs(children) do child.Parent = inst end
+	end
+	return inst
+end
+
+local function AddStroke(inst, color, thickness)
+	return Create("UIStroke", { Color = color, Thickness = thickness, Parent = inst })
+end
+
+local function AddCorner(inst, radius)
+	return Create("UICorner", { CornerRadius = UDim.new(0, radius), Parent = inst })
+end
+
+-- ==========================================
+-- UI 構築
+-- ==========================================
+local ScreenGui = Create("ScreenGui", {
+	Name = "KAT_AC_Bypass",
+	ResetOnSpawn = false,
+	IgnoreGuiInset = true,
+	ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+	Parent = PlayerGui,
+})
+
+local BASE_WIDTH = 400
+local BASE_HEIGHT = 350
+
+local MainFrame = Create("Frame", {
+	Name = "MainFrame",
+	Size = UDim2.new(0, BASE_WIDTH, 0, BASE_HEIGHT),
+	Position = UDim2.new(0.5, 0, 0.5, 0),
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	BackgroundColor3 = Theme.Bg,
+	BorderSizePixel = 0,
+	ClipsDescendants = true,
+	Parent = ScreenGui,
+})
+AddCorner(MainFrame, 8)
+AddStroke(MainFrame, Theme.Stroke, 1.5)
+
+local UIScale = Create("UIScale", { Parent = MainFrame })
+local function UpdateScale()
+	local viewport = Camera.ViewportSize
+	local scaleX = (viewport.X - 40) / BASE_WIDTH
+	local scaleY = (viewport.Y - 40) / BASE_HEIGHT
+	UIScale.Scale = math.clamp(math.min(scaleX, scaleY), 0.4, 1)
+end
+UpdateScale()
+Camera:GetPropertyChangedSignal("ViewportSize"):Connect(UpdateScale)
+
+local RestoreBtn = Create("TextButton", {
+	Name = "RestoreBtn",
+	Size = UDim2.new(0, 50, 0, 50),
+	Position = UDim2.new(0, 20, 0, 20),
+	BackgroundColor3 = Theme.Panel,
+	Text = "🛡️",
+	TextColor3 = Theme.Accent,
+	Font = Enum.Font.GothamBold,
+	TextSize = 20,
+	Visible = false,
+	ZIndex = 20,
+	Parent = ScreenGui,
+})
+AddCorner(RestoreBtn, 8)
+AddStroke(RestoreBtn, Theme.Accent, 1.5)
+
+local TopBar = Create("Frame", {
+	Size = UDim2.new(1, 0, 0, 40),
+	BackgroundColor3 = Theme.Panel,
+	BorderSizePixel = 0,
+	Parent = MainFrame,
+})
+AddCorner(TopBar, 8)
+
+Create("TextLabel", {
+	Text = "🛡️ Anti-Cheat Bypass",
+	Font = Enum.Font.GothamBold,
+	TextSize = 14,
+	TextColor3 = Theme.Text,
+	TextXAlignment = Enum.TextXAlignment.Left,
+	Position = UDim2.new(0, 15, 0, 0),
+	Size = UDim2.new(0.6, 0, 1, 0),
+	BackgroundTransparency = 1,
+	Parent = TopBar,
+})
+
+local HideBtn = Create("TextButton", {
+	Text = "ー",
+	Font = Enum.Font.GothamBold,
+	TextSize = 14,
+	TextColor3 = Theme.SubText,
+	BackgroundTransparency = 1,
+	Size = UDim2.new(0, 40, 1, 0),
+	Position = UDim2.new(1, -80, 0, 0),
+	Parent = TopBar,
+})
+HideBtn.MouseButton1Click:Connect(function()
+	MainFrame.Visible = false
+	RestoreBtn.Visible = true
+	RestoreBtn.Position = MainFrame.Position
+end)
+RestoreBtn.MouseButton1Click:Connect(function()
+	MainFrame.Visible = true
+	RestoreBtn.Visible = false
+end)
+
+local CloseBtn = Create("TextButton", {
+	Text = "✕",
+	Font = Enum.Font.GothamBold,
+	TextSize = 14,
+	TextColor3 = Theme.SubText,
+	BackgroundTransparency = 1,
+	Size = UDim2.new(0, 40, 1, 0),
+	Position = UDim2.new(1, -40, 0, 0),
+	Parent = TopBar,
+})
+CloseBtn.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
+
+local Content = Create("Frame", {
+	Size = UDim2.new(1, -30, 1, -50),
+	Position = UDim2.new(0, 15, 0, 45),
+	BackgroundTransparency = 1,
+	Parent = MainFrame,
+})
+Create("UIListLayout", { Padding = UDim.new(0, 10), Parent = Content })
+
+local StatusLabel = Create("TextLabel", {
+	Text = "Status: Active",
+	Font = Enum.Font.GothamBold,
+	TextSize = 12,
+	TextColor3 = Theme.Green,
+	TextXAlignment = Enum.TextXAlignment.Left,
+	Size = UDim2.new(1, 0, 0, 20),
+	BackgroundTransparency = 1,
+	Parent = Content,
+})
+
+local DisableBtn = Create("TextButton", {
+	Text = "Disable Local AntiCheat",
+	Font = Enum.Font.GothamBold,
+	TextSize = 13,
+	TextColor3 = Theme.Bg,
+	BackgroundColor3 = Theme.Accent,
+	Size = UDim2.new(1, 0, 0, 35),
+	AutoButtonColor = false,
+	Parent = Content,
+})
+AddCorner(DisableBtn, 6)
+
+local CmdrBtn = Create("TextButton", {
+	Text = "Bypass Quarantine (Cmdr)",
+	Font = Enum.Font.GothamBold,
+	TextSize = 13,
+	TextColor3 = Theme.Bg,
+	BackgroundColor3 = Theme.Blue,
+	Size = UDim2.new(1, 0, 0, 35),
+	AutoButtonColor = false,
+	Parent = Content,
+})
+AddCorner(CmdrBtn, 6)
+
+-- スピード維持用変数
+local targetWalkSpeed = nil
+local targetJumpPower = nil
+
+local function CreateSpeedControl(name, defaultVal, maxVal, callback)
+	local container = Create("Frame", {
+		Size = UDim2.new(1, 0, 0, 45),
+		BackgroundColor3 = Theme.CardBg,
+		Parent = Content,
+	})
+	AddCorner(container, 6)
+	AddStroke(container, Theme.Stroke, 1)
+	
+	Create("TextLabel", {
+		Text = name,
+		Font = Enum.Font.GothamMedium,
+		TextSize = 13,
+		TextColor3 = Theme.Text,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		Position = UDim2.new(0, 15, 0, 0),
+		Size = UDim2.new(0.4, 0, 1, 0),
+		BackgroundTransparency = 1,
+		Parent = container,
+	})
+	
+	local valLabel = Create("TextLabel", {
+		Text = tostring(defaultVal),
+		Font = Enum.Font.GothamBold,
+		TextSize = 14,
+		TextColor3 = Theme.Accent,
+		TextXAlignment = Enum.TextXAlignment.Center,
+		Position = UDim2.new(0.4, 0, 0, 0),
+		Size = UDim2.new(0.2, 0, 1, 0),
+		BackgroundTransparency = 1,
+		Parent = container,
+	})
+	
+	local minusBtn = Create("TextButton", {
+		Text = "-", Font = Enum.Font.GothamBold, TextSize = 18,
+		TextColor3 = Theme.Text, BackgroundColor3 = Theme.Bg,
+		Position = UDim2.new(0.65, 0, 0.1, 0), Size = UDim2.new(0.15, 0, 0.8, 0),
+		AutoButtonColor = false, Parent = container,
+	})
+	AddCorner(minusBtn, 4)
+	
+	local plusBtn = Create("TextButton", {
+		Text = "+", Font = Enum.Font.GothamBold, TextSize = 18,
+		TextColor3 = Theme.Text, BackgroundColor3 = Theme.Bg,
+		Position = UDim2.new(0.82, 0, 0.1, 0), Size = UDim2.new(0.15, 0, 0.8, 0),
+		AutoButtonColor = false, Parent = container,
+	})
+	AddCorner(plusBtn, 4)
+	
+	local currentVal = defaultVal
+	local function updateVal(amount)
+		currentVal = math.clamp(currentVal + amount, 16, maxVal)
+		valLabel.Text = tostring(currentVal)
+		callback(currentVal)
+	end
+	
+	minusBtn.MouseButton1Click:Connect(function() updateVal(-10) end)
+	plusBtn.MouseButton1Click:Connect(function() updateVal(10) end)
+end
+
+CreateSpeedControl("WalkSpeed", 16, 200, function(val)
+	targetWalkSpeed = val
+	if val <= 16 then targetWalkSpeed = nil end -- 16以下なら通常に戻す
+end)
+
+CreateSpeedControl("JumpPower", 50, 300, function(val)
+	targetJumpPower = val
+	if val <= 50 then targetJumpPower = nil end
+end)
+
+-- ==========================================
+-- ロジック
+-- ==========================================
+
+-- 1. AntiCheatの無効化
+DisableBtn.MouseButton1Click:Connect(function()
+	local playerScripts = LocalPlayer:FindFirstChild("PlayerScripts")
+	if playerScripts then
+		local antiCheat = playerScripts:FindFirstChild("AntiCheat")
+		if antiCheat then
+			local success, err = pcall(function()
+				antiCheat.Disabled = true
+				antiCheat.Name = "AntiCheat_Disabled_" .. math.random(1, 1000)
+			end)
+			if success then
+				StatusLabel.Text = "Status: Local AntiCheat Disabled!"
+				StatusLabel.TextColor3 = Theme.Green
+				DisableBtn.Text = "AntiCheat Disabled"
+				DisableBtn.BackgroundColor3 = Theme.Stroke
+			else
+				StatusLabel.Text = "Status: Failed to disable AC."
+				StatusLabel.TextColor3 = Theme.Red
+			end
+		else
+			StatusLabel.Text = "Status: AntiCheat script not found."
+			StatusLabel.TextColor3 = Theme.Red
+		end
+	end
+end)
+
+-- 2. Quarantine Bypass (Cmdr) 
+CmdrBtn.MouseButton1Click:Connect(function()
+	local cmdrClient = ReplicatedStorage:FindFirstChild("CmdrClient")
+	if not cmdrClient then return end
+	local cmdrFunc = cmdrClient:FindFirstChild("CmdrFunction")
+	if not cmdrFunc then return end
+	
+	CmdrBtn.Text = "Sending..."
+	
+	task.spawn(function()
+		local success, err = pcall(function()
+			cmdrFunc:InvokeServer("unquarantine", LocalPlayer.Name)
+		end)
+		
+		if success then
+			StatusLabel.Text = "Status: Sent Unquarantine request."
+			StatusLabel.TextColor3 = Theme.Green
+			CmdrBtn.Text = "Request Sent"
+		else
+			StatusLabel.Text = "Status: Cmdr failed (No perms)."
+			StatusLabel.TextColor3 = Theme.Red
+			CmdrBtn.Text = "Bypass Quarantine (Cmdr)"
+		end
+		
+		task.wait(2)
+		CmdrBtn.Text = "Bypass Quarantine (Cmdr)"
+	end)
+end)
+
+-- 3. スピード強制維持ループ (AntiCheatのリセットを上書き)
+RunService.Heartbeat:Connect(function()
+	local char = LocalPlayer.Character
+	if not char then return end
+	local hum = char:FindFirstChildOfClass("Humanoid")
+	if not hum then return end
+	
+	if targetWalkSpeed and hum.WalkSpeed ~= targetWalkSpeed then
+		hum.WalkSpeed = targetWalkSpeed
+	end
+	
+	if targetJumpPower and hum.JumpPower ~= targetJumpPower then
+		hum.JumpPower = targetJumpPower
+		hum.UseJumpPower = true
+	end
+end)
+
+-- キャラクター再スポーン時にターゲット値を再適用
+LocalPlayer.CharacterAdded:Connect(function(char)
+	task.wait(1)
+	local hum = char:FindFirstChildOfClass("Humanoid")
+	if hum then
+		if targetWalkSpeed then hum.WalkSpeed = targetWalkSpeed end
+		if targetJumpPower then hum.JumpPower = targetJumpPower; hum.UseJumpPower = true end
+	end
+end)
+
+-- ==========================================
+-- ドラッグ移動
+-- ==========================================
+local dragging = false
+local dragStart, startPos
+local currentDragTarget = nil
+
+local function startDrag(input, target)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = target.Position
+		currentDragTarget = target
+	end
+end
+
+TopBar.InputBegan:Connect(function(input) startDrag(input, MainFrame) end)
+RestoreBtn.InputBegan:Connect(function(input) startDrag(input, RestoreBtn) end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and currentDragTarget and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		local delta = input.Position - dragStart
+		local newX = startPos.X.Offset + delta.X
+		local newY = startPos.Y.Offset + delta.Y
+		
+		local viewport = Camera.ViewportSize
+		local frameWidth = currentDragTarget.AbsoluteSize.X
+		local frameHeight = currentDragTarget.AbsoluteSize.Y
+		
+		newX = math.clamp(newX, -frameWidth/2 + 50, viewport.X - 50)
+		newY = math.clamp(newY, 0, viewport.Y - 50)
+		
+		currentDragTarget.Position = UDim2.new(startPos.X.Scale, newX, startPos.Y.Scale, newY)
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = false
+		currentDragTarget = nil
+	end
+end)
